@@ -1,0 +1,36 @@
+<mat-card class="signup-card">
+  <mat-card-header>
+    <mat-card-title>INFORMACIÓN DELICTUAL CSC SIGNUP</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="width: 100%;">
+    <form style="display: flex;flex-direction: column;width: 100%;">
+      <mat-form-field >
+        <input matInput
+               placeholder="Usuario"
+               [(ngModel)]="username"
+               name="username"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               placeholder="Contraseña"
+               [(ngModel)]="password"
+               type="password"
+               name="password"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               placeholder="Confirm Password"
+               [(ngModel)]="confirmPassword"
+               type="password"
+               name="confirmPassword"
+               required>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="login()" color="primary">Ingreso</button>
+    <button mat-raised-button (click)="signup()" color="accent">Registro</button>
+  </mat-card-actions>
+</mat-card>

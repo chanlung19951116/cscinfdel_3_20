@@ -1,0 +1,371 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Libador</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="container-fluid" style="overflow-x: auto">
+        <table class="table text-center">
+          <thead>
+
+          <th>CodigoLibador</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Telefonos</th>
+          <th>Direccion</th>
+          <th>Edad</th>
+          <th>Contacto</th>
+          <th>Estado</th>
+          <th>Sexo</th>
+
+          <th style="min-width: 150px;">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="startCreating()">
+              <mat-icon aria-label="Add">add</mat-icon>
+            </button>
+          </th>
+
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of tableData; let i = index;">
+            <td>{{row.lbCodigoLibador}}</td>
+            <td>{{row.lbNombres}}</td>
+            <td>{{row.lbApellidos}}</td>
+            <td>{{row.lbTelefonos}}</td>
+            <td>{{row.lbDireccion}}</td>
+            <td>{{row.lbEdad}}</td>
+            <td>{{row.lbContacto}}</td>
+            <td>{{row.lbEstado | estado}}</td>
+            <td>{{row.lbSexo | gender}}</td>
+
+            <td>
+              <button
+                mat-icon-button
+                color="accent"
+                (click)="startEditing(i, row)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                color="accent"
+                (click)="deleteItem(i, row)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+
+          </tbody>
+
+        </table>
+
+        <div class="text-center" *ngIf="tableData.length === 0">
+          <span>No record</span>
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Nombres"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbNombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbNombres'].hasError('required') && createForm.controls['lbNombres'].touched"
+          class="text-danger support-text">Nombres es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Apellidos"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbApellidos">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbApellidos'].hasError('required') && createForm.controls['lbApellidos'].touched"
+          class="text-danger support-text">Apellidos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Telefonos"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbTelefonos">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbTelefonos'].hasError('required') && createForm.controls['lbTelefonos'].touched"
+          class="text-danger support-text">Telefonos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 maxlength="255"
+                 type="text"
+                 formControlName="lbDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbDireccion'].hasError('required') && createForm.controls['lbDireccion'].touched"
+          class="text-danger support-text">Direccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Edad"
+                 type="number"
+                 step="1"
+                 formControlName="lbEdad">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbEdad'].hasError('required') && createForm.controls['lbEdad'].touched"
+          class="text-danger support-text">Edad es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Contacto"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbContacto">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbContacto'].hasError('required') && createForm.controls['lbContacto'].touched"
+          class="text-danger support-text">Contacto es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="lbEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbEstado'].hasError('required') && createForm.controls['lbEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Sexo"
+                      formControlName="lbSexo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">MASCULINO</mat-option>
+            <mat-option [value]="0">FEMENINO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbSexo'].hasError('required') && createForm.controls['lbSexo'].touched"
+          class="text-danger support-text">Sexo es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.lbCodigoLibador}}</span>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Nombres"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbNombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbNombres'].hasError('required') && editForm.controls['lbNombres'].touched"
+          class="text-danger support-text">Nombres es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Apellidos"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbApellidos">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbApellidos'].hasError('required') && editForm.controls['lbApellidos'].touched"
+          class="text-danger support-text">Apellidos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Telefonos"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbTelefonos">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbTelefonos'].hasError('required') && editForm.controls['lbTelefonos'].touched"
+          class="text-danger support-text">Telefonos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 maxlength="255"
+                 type="text"
+                 formControlName="lbDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbDireccion'].hasError('required') && editForm.controls['lbDireccion'].touched"
+          class="text-danger support-text">Direccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Edad"
+                 type="number"
+                 step="1"
+                 formControlName="lbEdad">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbEdad'].hasError('required') && editForm.controls['lbEdad'].touched"
+          class="text-danger support-text">Edad es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Contacto"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbContacto">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbContacto'].hasError('required') && editForm.controls['lbContacto'].touched"
+          class="text-danger support-text">Contacto es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="lbEstado">
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbEstado'].hasError('required') && editForm.controls['lbEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Sexo"
+                      formControlName="lbSexo">
+            <mat-option [value]="1">MASCULINO</mat-option>
+            <mat-option [value]="0">FEMENINO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbSexo'].hasError('required') && editForm.controls['lbSexo'].touched"
+          class="text-danger support-text">Sexo es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+

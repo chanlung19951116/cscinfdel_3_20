@@ -1,0 +1,299 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Fiscalia</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="fiscaliaCodigo" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Codigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.fiscaliaCodigo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fiscaliaNombre" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.fiscaliaNombre}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fiscaliaDireccion" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Direccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.fiscaliaDireccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fiscaliaTelefono" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Telefono</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.fiscaliaTelefono}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="fiscaliaEstado" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.fiscaliaEstado | estado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaCodigo"
+                 type="text"
+                 maxlength="10"
+                 formControlName="fiscaliaCodigo">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['fiscaliaCodigo'].hasError('required') && createForm.controls['fiscaliaCodigo'].touched"
+          class="text-danger support-text">FiscaliaCodigo es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaNombre"
+                 type="text"
+                 maxlength="50"
+                 formControlName="fiscaliaNombre">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['fiscaliaNombre'].hasError('required') && createForm.controls['fiscaliaNombre'].touched"
+          class="text-danger support-text">FiscaliaNombre es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaDireccion"
+                 type="text"
+                 maxlength="255"
+                 formControlName="fiscaliaDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['fiscaliaDireccion'].hasError('required') && createForm.controls['fiscaliaDireccion'].touched"
+          class="text-danger support-text">FiscaliaDireccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="fiscaliaTelefono"
+                 type="text"
+                 maxlength="30"
+                 formControlName="fiscaliaTelefono">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['fiscaliaTelefono'].hasError('required') && createForm.controls['fiscaliaTelefono'].touched"
+          class="text-danger support-text">fiscaliaTelefono es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="FiscaliaEstado"
+                      formControlName="fiscaliaEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['fiscaliaEstado'].hasError('required') && createForm.controls['fiscaliaEstado'].touched"
+          class="text-danger support-text">FiscaliaEstado es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaCodigo"
+                 type="text"
+                 maxlength="10"
+                 formControlName="fiscaliaCodigo">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['fiscaliaCodigo'].hasError('required') && editForm.controls['fiscaliaCodigo'].touched"
+          class="text-danger support-text">FiscaliaCodigo es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaNombre"
+                 type="text"
+                 maxlength="50"
+                 formControlName="fiscaliaNombre">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['fiscaliaNombre'].hasError('required') && editForm.controls['fiscaliaNombre'].touched"
+          class="text-danger support-text">FiscaliaNombre es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FiscaliaDireccion"
+                 type="text"
+                 maxlength="255"
+                 formControlName="fiscaliaDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['fiscaliaDireccion'].hasError('required') && editForm.controls['fiscaliaDireccion'].touched"
+          class="text-danger support-text">FiscaliaDireccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="fiscaliaTelefono"
+                 type="text"
+                 maxlength="30"
+                 formControlName="fiscaliaTelefono">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['fiscaliaTelefono'].hasError('required') && editForm.controls['fiscaliaTelefono'].touched"
+          class="text-danger support-text">fiscaliaTelefono es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="FiscaliaEstado"
+                      formControlName="fiscaliaEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['fiscaliaEstado'].hasError('required') && editForm.controls['fiscaliaEstado'].touched"
+          class="text-danger support-text">FiscaliaEstado es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+

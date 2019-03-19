@@ -1,0 +1,506 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Vehiculo</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+
+          <ng-container matColumnDef="Placa" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Placa</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.placa}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoMarca">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMarca</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoMarca}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoModelo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoModelo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoModelo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoTipoVehiculo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoVehiculo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoTipoVehiculo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoTipoServicio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoServicio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoTipoServicio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Anio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Anio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.anio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoColor">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoColor</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoColor}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CodigoTipoEmpresaVehiculo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoEmpresaVehiculo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoTipoEmpresaVehiculo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Avaluo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Avaluo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.avaluo}}</mat-cell>
+          </ng-container>
+
+
+
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="Placa"
+            type="text"
+            maxlength="8"
+            formControlName="placa"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['placa'].hasError('required') && createForm.controls['placa'].touched"
+          class="text-danger support-text">Placa es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoMarca"
+            formControlName="codigoMarca">
+            <mat-option
+              *ngFor="let item of pageData.marcaVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoMarca'].hasError('required') && createForm.controls['codigoMarca'].touched"
+          class="text-danger support-text">CodigoMarca es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoModelo"
+            formControlName="codigoModelo">
+            <mat-option
+              *ngFor="let item of pageData.modeloVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoModelo'].hasError('required') && createForm.controls['codigoModelo'].touched"
+          class="text-danger support-text">CodigoModelo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoVehiculo"
+            formControlName="codigoTipoVehiculo">
+            <mat-option
+              *ngFor="let item of pageData.tipoVehiculoList"
+              [value]="item.tipoVehiculoCodigo">{{item.tipoVehiculoDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoTipoVehiculo'].hasError('required') && createForm.controls['codigoTipoVehiculo'].touched"
+          class="text-danger support-text">CodigoTipoVehiculo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoServicio"
+            formControlName="codigoTipoServicio">
+            <mat-option
+              *ngFor="let item of pageData.servicioVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoTipoServicio'].hasError('required') && createForm.controls['codigoTipoServicio'].touched"
+          class="text-danger support-text">CodigoTipoServicio es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="Anio"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="anio"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['anio'].hasError('required') && createForm.controls['anio'].touched"
+          class="text-danger support-text">Anio es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoColor"
+            formControlName="codigoColor">
+            <mat-option
+              *ngFor="let item of pageData.servicioVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoColor'].hasError('required') && createForm.controls['codigoColor'].touched"
+          class="text-danger support-text">CodigoColor es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoEmpresaVehiculo"
+            formControlName="codigoTipoEmpresaVehiculo">
+            <mat-option
+              *ngFor="let item of pageData.tipoEmpresaVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoTipoEmpresaVehiculo'].hasError('required') && createForm.controls['codigoTipoEmpresaVehiculo'].touched"
+          class="text-danger support-text">CodigoTipoEmpresaVehiculo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Avaluo"
+                 type="number"
+                 maxlength="53"
+                 formControlName="avaluo">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['avaluo'].hasError('required') && createForm.controls['avaluo'].touched"
+          class="text-danger support-text">Avaluo es requerido.<br>
+        </small>
+
+
+
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="Placa"
+            type="text"
+            maxlength="8"
+            formControlName="placa"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['placa'].hasError('required') && editForm.controls['placa'].touched"
+          class="text-danger support-text">Placa es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoMarca"
+            formControlName="codigoMarca">
+            <mat-option
+              *ngFor="let item of pageData.marcaVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoMarca'].hasError('required') && editForm.controls['codigoMarca'].touched"
+          class="text-danger support-text">CodigoMarca es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoModelo"
+            formControlName="codigoModelo">
+            <mat-option
+              *ngFor="let item of pageData.modeloVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoModelo'].hasError('required') && editForm.controls['codigoModelo'].touched"
+          class="text-danger support-text">CodigoModelo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoVehiculo"
+            formControlName="codigoTipoVehiculo">
+            <mat-option
+              *ngFor="let item of pageData.tipoVehiculoList"
+              [value]="item.tipoVehiculoCodigo">{{item.tipoVehiculoDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoTipoVehiculo'].hasError('required') && editForm.controls['codigoTipoVehiculo'].touched"
+          class="text-danger support-text">CodigoTipoVehiculo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoServicio"
+            formControlName="codigoTipoServicio">
+            <mat-option
+              *ngFor="let item of pageData.servicioVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoTipoServicio'].hasError('required') && editForm.controls['codigoTipoServicio'].touched"
+          class="text-danger support-text">CodigoTipoServicio es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="Anio"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="anio"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['anio'].hasError('required') && editForm.controls['anio'].touched"
+          class="text-danger support-text">Anio es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoColor"
+            formControlName="codigoColor">
+            <mat-option
+              *ngFor="let item of pageData.servicioVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoColor'].hasError('required') && editForm.controls['codigoColor'].touched"
+          class="text-danger support-text">CodigoColor es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoTipoEmpresaVehiculo"
+            formControlName="codigoTipoEmpresaVehiculo">
+            <mat-option
+              *ngFor="let item of pageData.tipoEmpresaVehiculoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoTipoEmpresaVehiculo'].hasError('required') && editForm.controls['codigoTipoEmpresaVehiculo'].touched"
+          class="text-danger support-text">CodigoTipoEmpresaVehiculo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Avaluo"
+                 type="number"
+                 maxlength="53"
+                 formControlName="avaluo">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['avaluo'].hasError('required') && editForm.controls['avaluo'].touched"
+          class="text-danger support-text">Avaluo es requerido.<br>
+        </small>
+
+
+
+
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+

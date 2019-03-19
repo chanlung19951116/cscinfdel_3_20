@@ -1,0 +1,401 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">MenuRol</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="menucodigo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>menucodigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.menu.description}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="rolcodigo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>rolcodigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.rol.rolDescripcion}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="ins" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>ins</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.ins | sino}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="upd" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>upd</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.upd | sino}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="del" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>del</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.del | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="rea" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>rea</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.rea | sino}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Menu"
+                      formControlName="menucodigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.menuList"
+              [value]="item.codigo">{{item.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['menucodigo'].hasError('required') && createForm.controls['menucodigo'].touched"
+          class="text-danger support-text">Menu es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Rol"
+                      formControlName="rolcodigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.rolList"
+              [value]="item.codigo">{{item.rolDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['rolcodigo'].hasError('required') && createForm.controls['rolcodigo'].touched"
+          class="text-danger support-text">Rol es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Ins"
+                      formControlName="ins">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['ins'].hasError('required') && createForm.controls['ins'].touched"
+          class="text-danger support-text">Ins es requerido.
+        </small>
+
+        
+        
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Upd"
+                      formControlName="upd">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['upd'].hasError('required') && createForm.controls['upd'].touched"
+          class="text-danger support-text">Upd es requerido.
+        </small>
+
+        
+        
+        
+        
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Del"
+                      formControlName="del">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['del'].hasError('required') && createForm.controls['del'].touched"
+          class="text-danger support-text">Del es requerido.
+        </small>
+
+        
+        
+
+        
+        
+        
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Rea"
+                      formControlName="rea">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['rea'].hasError('required') && createForm.controls['rea'].touched"
+          class="text-danger support-text">Rea es requerido.
+        </small>
+
+        
+        
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Menu"
+                      formControlName="menucodigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.menuList"
+              [value]="item.codigo">{{item.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['menucodigo'].hasError('required') && editForm.controls['menucodigo'].touched"
+          class="text-danger support-text">Menu es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Rol"
+                      formControlName="rolcodigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.rolList"
+              [value]="item.codigo">{{item.rolDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['rolcodigo'].hasError('required') && editForm.controls['rolcodigo'].touched"
+          class="text-danger support-text">Rol es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Ins"
+                      formControlName="ins">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['ins'].hasError('required') && editForm.controls['ins'].touched"
+          class="text-danger support-text">Ins es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Upd"
+                      formControlName="upd">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['upd'].hasError('required') && editForm.controls['upd'].touched"
+          class="text-danger support-text">Upd es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Del"
+                      formControlName="del">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['del'].hasError('required') && editForm.controls['del'].touched"
+          class="text-danger support-text">Del es requerido.
+        </small>
+
+
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Rea"
+                      formControlName="rea">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['rea'].hasError('required') && editForm.controls['rea'].touched"
+          class="text-danger support-text">Rea es requerido.
+        </small>
+
+
+
+
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+

@@ -1,0 +1,1700 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Lesiones</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="leCodigoUnico" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoUnico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoUnico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoSecuencial">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoSecuencial</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoSecuencial}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leClaveExpediente">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>ClaveExpediente</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leClaveExpediente}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoTipoPunto">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoPunto</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoTipoPunto}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoRespScanner">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>lCodigoRespScanner</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoRespScanner}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoFiscalia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscalia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoFiscalia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoFiscal">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscal</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoFiscal}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leNumeroDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leNumeroDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leFechaDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leFechaDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leDireccionDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>DireccionDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leDireccionDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoParroquia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoParroquia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoParroquia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoBarrio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoBarrio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoBarrio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoTipoRinia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoRinia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoTipoRinia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoGrupoFocal">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoGrupoFocal</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoGrupoFocal}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoMecanismoAgresor">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMecanismoAgresor</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoMecanismoAgresor}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leFechaHecho">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaHecho</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leFechaHecho}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoDia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoDia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoDia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoMes">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMes</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoMes}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoAnio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoAnio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoAnio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leHora">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Hora</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leHora}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leMinutos">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Minutos</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leMinutos}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoLugar">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoLugar</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoLugar}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leDelitoFlagrante">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>DelitoFlagrante</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leDelitoFlagrante | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leNumeroHombres">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroHombres</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leNumeroHombres}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leNumeroMujeres">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroMujeres</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leNumeroMujeres}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leObservaciones">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Observaciones</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leObservaciones}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leFechaActualizacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaActualizacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leFechaActualizacion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leGeoReferenciacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>GeoReferenciacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leGeoReferenciacion | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leCodigoGeo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoGeo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leCodigoGeo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="leEstado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.leEstado | estado}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </table>
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoSecuencial"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leCodigoSecuencial">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoSecuencial'].hasError('required') && createForm.controls['leCodigoSecuencial'].touched"
+          class="text-danger support-text">CodigoSecuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="ClaveExpediente"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leClaveExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leClaveExpediente'].hasError('required') && createForm.controls['leClaveExpediente'].touched"
+          class="text-danger support-text">ClaveExpediente es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoPunto"
+                      formControlName="leCodigoTipoPunto">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.tipoPuntoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoTipoPunto'].hasError('required') && createForm.controls['leCodigoTipoPunto'].touched"
+          class="text-danger support-text">CodigoTipoPunto es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoRespScanner"
+                      formControlName="leCodigoRespScanner">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.responsableEscanerList"
+              [value]="item.codigo">{{item.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoRespScanner'].hasError('required') && createForm.controls['leCodigoRespScanner'].touched"
+          class="text-danger support-text">CodigoRespScanner es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscalia"
+                      formControlName="leCodigoFiscalia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoFiscalia'].hasError('required') && createForm.controls['leCodigoFiscalia'].touched"
+          class="text-danger support-text">CodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscal"
+                      formControlName="leCodigoFiscal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['leCodigoFiscal'].hasError('required') && createForm.controls['leCodigoFiscal'].touched"
+          class="text-danger support-text">CodigoFiscal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroDenuncia"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leNumeroDenuncia">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leNumeroDenuncia'].hasError('required') && createForm.controls['leNumeroDenuncia'].touched"
+          class="text-danger support-text">NumeroDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaDenunciaPicker4Create"
+            placeholder="FechaDenuncia"
+            formControlName="leFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaDenunciaPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaDenunciaPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leFechaDenuncia'].hasError('required') && createForm.controls['leFechaDenuncia'].touched"
+          class="text-danger support-text">FechaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="DireccionDenuncia"
+                 type="text"
+                 maxlength="100"
+                 formControlName="leDireccionDenuncia">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leDireccionDenuncia'].hasError('required') && createForm.controls['leDireccionDenuncia'].touched"
+          class="text-danger support-text">DireccionDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoParroquia"
+                      formControlName="leCodigoParroquia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['leCodigoParroquia'].hasError('required') && createForm.controls['leCodigoParroquia'].touched"
+          class="text-danger support-text">CodigoParroquia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoBarrio"
+                      formControlName="leCodigoBarrio">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.barrioList"
+              [value]="item.barrioCodigo">{{item.barrioDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoBarrio'].hasError('required') && createForm.controls['leCodigoBarrio'].touched"
+          class="text-danger support-text">CodigoBarrio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoRinia"
+                      formControlName="leCodigoTipoRinia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.tipoRiniaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoTipoRinia'].hasError('required') && createForm.controls['leCodigoTipoRinia'].touched"
+          class="text-danger support-text">CodigoTipoRinia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGrupoFocal"
+                      formControlName="leCodigoGrupoFocal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.grupoFocalesList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoGrupoFocal'].hasError('required') && createForm.controls['leCodigoGrupoFocal'].touched"
+          class="text-danger support-text">CodigoGrupoFocal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMecanismoAgresor"
+                      formControlName="leCodigoMecanismoAgresor">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.mecanismoAgresorList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoMecanismoAgresor'].hasError('required') && createForm.controls['leCodigoMecanismoAgresor'].touched"
+          class="text-danger support-text">CodigoMecanismoAgresor es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaHechoPicker4Create"
+            placeholder="FechaHecho"
+            formControlName="leFechaHecho">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaHechoPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaHechoPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leFechaHecho'].hasError('required') && createForm.controls['leFechaHecho'].touched"
+          class="text-danger support-text">FechaHecho es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoDia"
+                      formControlName="leCodigoDia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['leCodigoDia'].hasError('required') && createForm.controls['leCodigoDia'].touched"
+          class="text-danger support-text">CodigoDia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMes"
+                      formControlName="leCodigoMes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoMes'].hasError('required') && createForm.controls['leCodigoMes'].touched"
+          class="text-danger support-text">CodigoMes es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoAnio"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leCodigoAnio">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoAnio'].hasError('required') && createForm.controls['leCodigoAnio'].touched"
+          class="text-danger support-text">CodigoAnio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Hora"
+                 type="number"
+                 min="0"
+                 max="23"
+                 step="1"
+                 formControlName="leHora">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leHora'].hasError('required') && createForm.controls['leHora'].touched"
+          class="text-danger support-text">Hora es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Minutos"
+                 type="number"
+                 min="0"
+                 max="59"
+                 step="1"
+                 formControlName="leMinutos">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leMinutos'].hasError('required') && createForm.controls['leMinutos'].touched"
+          class="text-danger support-text">Minutos es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoLugar"
+                      formControlName="leCodigoLugar">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.lugarList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leCodigoLugar'].hasError('required') && createForm.controls['leCodigoLugar'].touched"
+          class="text-danger support-text">CodigoLugar es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="DelitoFlagrante"
+                      formControlName="leDelitoFlagrante">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leDelitoFlagrante'].hasError('required') && createForm.controls['leDelitoFlagrante'].touched"
+          class="text-danger support-text">DelitoFlagrante es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroHombres"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leNumeroHombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leNumeroHombres'].hasError('required') && createForm.controls['leNumeroHombres'].touched"
+          class="text-danger support-text">NumeroHombres es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroMujeres"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leNumeroMujeres">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leNumeroMujeres'].hasError('required') && createForm.controls['leNumeroMujeres'].touched"
+          class="text-danger support-text">NumeroMujeres es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Observaciones"
+                 type="text"
+                 maxlength="255"
+                 formControlName="leObservaciones">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leObservaciones'].hasError('required') && createForm.controls['leObservaciones'].touched"
+          class="text-danger support-text">Observaciones es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaActualizacionPicker4Create"
+            placeholder="FechaActualizacion"
+            formControlName="leFechaActualizacion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaActualizacionPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaActualizacionPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leFechaActualizacion'].hasError('required') && createForm.controls['leFechaActualizacion'].touched"
+          class="text-danger support-text">FechaActualizacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GeoReferenciacion"
+                      formControlName="leGeoReferenciacion">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leGeoReferenciacion'].hasError('required') && createForm.controls['leGeoReferenciacion'].touched"
+          class="text-danger support-text">GeoReferenciacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGeo"
+                      formControlName="leCodigoGeo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY:
+              {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['leCodigoGeo'].hasError('required') && createForm.controls['leCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="leEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['leEstado'].hasError('required') && createForm.controls['leEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-start">
+
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openLesionAgresorDialog()"
+                  color="primary">LesionAgresor
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openLesionVictimaDialog()"
+                  color="primary">LesionVictima
+          </button>
+        </div>
+
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.lCodigoUnico}}</span>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoSecuencial"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leCodigoSecuencial">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoSecuencial'].hasError('required') && editForm.controls['leCodigoSecuencial'].touched"
+          class="text-danger support-text">CodigoSecuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="ClaveExpediente"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leClaveExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leClaveExpediente'].hasError('required') && editForm.controls['leClaveExpediente'].touched"
+          class="text-danger support-text">ClaveExpediente es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoPunto"
+                      formControlName="leCodigoTipoPunto">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.tipoPuntoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoTipoPunto'].hasError('required') && editForm.controls['leCodigoTipoPunto'].touched"
+          class="text-danger support-text">CodigoTipoPunto es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoRespScanner"
+                      formControlName="leCodigoRespScanner">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.responsableEscanerList"
+              [value]="item.codigo">{{item.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoRespScanner'].hasError('required') && editForm.controls['leCodigoRespScanner'].touched"
+          class="text-danger support-text">CodigoRespScanner es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscalia"
+                      formControlName="leCodigoFiscalia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoFiscalia'].hasError('required') && editForm.controls['leCodigoFiscalia'].touched"
+          class="text-danger support-text">CodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscal"
+                      formControlName="leCodigoFiscal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['leCodigoFiscal'].hasError('required') && editForm.controls['leCodigoFiscal'].touched"
+          class="text-danger support-text">CodigoFiscal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroDenuncia"
+                 type="text"
+                 maxlength="10"
+                 formControlName="leNumeroDenuncia">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leNumeroDenuncia'].hasError('required') && editForm.controls['leNumeroDenuncia'].touched"
+          class="text-danger support-text">NumeroDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaDenunciaPicker4Edit"
+            placeholder="FechaDenuncia"
+            formControlName="leFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaDenunciaPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaDenunciaPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leFechaDenuncia'].hasError('required') && editForm.controls['leFechaDenuncia'].touched"
+          class="text-danger support-text">FechaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="DireccionDenuncia"
+                 type="text"
+                 maxlength="100"
+                 formControlName="leDireccionDenuncia">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leDireccionDenuncia'].hasError('required') && editForm.controls['leDireccionDenuncia'].touched"
+          class="text-danger support-text">DireccionDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoParroquia"
+                      formControlName="leCodigoParroquia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['leCodigoParroquia'].hasError('required') && editForm.controls['leCodigoParroquia'].touched"
+          class="text-danger support-text">CodigoParroquia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoBarrio"
+                      formControlName="leCodigoBarrio">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.barrioList"
+              [value]="item.barrioCodigo">{{item.barrioDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoBarrio'].hasError('required') && editForm.controls['leCodigoBarrio'].touched"
+          class="text-danger support-text">CodigoBarrio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoRinia"
+                      formControlName="leCodigoTipoRinia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.tipoRiniaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoTipoRinia'].hasError('required') && editForm.controls['leCodigoTipoRinia'].touched"
+          class="text-danger support-text">CodigoTipoRinia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGrupoFocal"
+                      formControlName="leCodigoGrupoFocal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.grupoFocalesList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoGrupoFocal'].hasError('required') && editForm.controls['leCodigoGrupoFocal'].touched"
+          class="text-danger support-text">CodigoGrupoFocal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMecanismoAgresor"
+                      formControlName="leCodigoMecanismoAgresor">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.mecanismoAgresorList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoMecanismoAgresor'].hasError('required') && editForm.controls['leCodigoMecanismoAgresor'].touched"
+          class="text-danger support-text">CodigoMecanismoAgresor es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaHechoPicker4Edit"
+            placeholder="FechaHecho"
+            formControlName="leFechaHecho">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaHechoPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaHechoPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leFechaHecho'].hasError('required') && editForm.controls['leFechaHecho'].touched"
+          class="text-danger support-text">FechaHecho es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoDia"
+                      formControlName="leCodigoDia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['leCodigoDia'].hasError('required') && editForm.controls['leCodigoDia'].touched"
+          class="text-danger support-text">CodigoDia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMes"
+                      formControlName="leCodigoMes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoMes'].hasError('required') && editForm.controls['leCodigoMes'].touched"
+          class="text-danger support-text">CodigoMes es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoAnio"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leCodigoAnio">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoAnio'].hasError('required') && editForm.controls['leCodigoAnio'].touched"
+          class="text-danger support-text">CodigoAnio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Hora"
+                 type="number"
+                 min="0"
+                 max="23"
+                 step="1"
+                 formControlName="leHora">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leHora'].hasError('required') && editForm.controls['leHora'].touched"
+          class="text-danger support-text">Hora es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Minutos"
+                 type="number"
+                 min="0"
+                 max="59"
+                 step="1"
+                 formControlName="leMinutos">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leMinutos'].hasError('required') && editForm.controls['leMinutos'].touched"
+          class="text-danger support-text">Minutos es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoLugar"
+                      formControlName="leCodigoLugar">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option
+              *ngFor="let item of pageData.lugarList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leCodigoLugar'].hasError('required') && editForm.controls['leCodigoLugar'].touched"
+          class="text-danger support-text">CodigoLugar es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="DelitoFlagrante"
+                      formControlName="leDelitoFlagrante">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leDelitoFlagrante'].hasError('required') && editForm.controls['leDelitoFlagrante'].touched"
+          class="text-danger support-text">DelitoFlagrante es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroHombres"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leNumeroHombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leNumeroHombres'].hasError('required') && editForm.controls['leNumeroHombres'].touched"
+          class="text-danger support-text">NumeroHombres es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroMujeres"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="leNumeroMujeres">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leNumeroMujeres'].hasError('required') && editForm.controls['leNumeroMujeres'].touched"
+          class="text-danger support-text">NumeroMujeres es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Observaciones"
+                 type="text"
+                 maxlength="255"
+                 formControlName="leObservaciones">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leObservaciones'].hasError('required') && editForm.controls['leObservaciones'].touched"
+          class="text-danger support-text">Observaciones es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lFechaActualizacionPicker4Edit"
+            placeholder="FechaActualizacion"
+            formControlName="leFechaActualizacion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lFechaActualizacionPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #lFechaActualizacionPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leFechaActualizacion'].hasError('required') && editForm.controls['leFechaActualizacion'].touched"
+          class="text-danger support-text">FechaActualizacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GeoReferenciacion"
+                      formControlName="leGeoReferenciacion">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leGeoReferenciacion'].hasError('required') && editForm.controls['leGeoReferenciacion'].touched"
+          class="text-danger support-text">GeoReferenciacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGeo"
+                      formControlName="leCodigoGeo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY:
+              {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['leCodigoGeo'].hasError('required') && editForm.controls['leCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="leEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['leEstado'].hasError('required') && editForm.controls['leEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-start">
+
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openLesionAgresorDialog()"
+                  color="primary">LesionAgresor
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openLesionVictimaDialog()"
+                  color="primary">LesionVictima
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+
+<ng-template #lesionAgresorDialog>
+  <div mat-dialog-content>
+    <p>LesionAgresor</p>
+  </div>
+
+  <form
+    [formGroup]="lesionAgresorCreateForm"
+    (ngSubmit)="createLesionAgresor()">
+
+    <div class="w-100 row">
+
+      <div class="col-10">
+        <div class="row">
+          <div style="width: 25%;">
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                placeholder="Agresor"
+                [matAutocomplete]="autoComplete4AgresorSelect"
+                formControlName="agresor">
+            </mat-form-field>
+
+            <mat-autocomplete
+              #autoComplete4AgresorSelect="matAutocomplete"
+              [displayWith]="agresorAutoCompleteDisplayWith"
+              (optionSelected)="onAgresorSelectOptionSelected($event)">
+              <mat-option
+                *ngFor="let item of agresorFiltered | async"
+                [value]="item">{{item.apellidos}} {{item.nombres}}
+              </mat-option>
+            </mat-autocomplete>
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['agresor'].hasError('required') && lesionAgresorCreateForm.controls['agresor'].touched"
+              class="text-danger support-text">Agresor es requerido.<br>
+            </small>
+
+          </div>
+          </div>
+          <div style="width: 75%;">
+           <div class="row">
+            <div style="width: 19%;margin-left: 1%;">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="RelacionAgresor"
+                          formControlName="relacionAgresor">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.relacionAgresorList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['relacionAgresor'].hasError('required') && lesionAgresorCreateForm.controls['relacionAgresor'].touched"
+              class="text-danger support-text">RelacionAgresor es requerido.<br>
+            </small>
+
+
+          </div>
+
+            <div style="width: 19%;margin-left: 1%;">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="IndicioEstupefaciente"
+                          formControlName="indicioEstupefacientes">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.indicioEstupefacientesList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['indicioEstupefacientes'].hasError('required') && lesionAgresorCreateForm.controls['indicioEstupefacientes'].touched"
+              class="text-danger support-text">IndicioEstupefaciente es requerido.<br>
+            </small>
+
+
+          </div>
+
+            <div style="width: 19%;margin-left: 1%;">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="GradoAlcoholAgresor"
+                          formControlName="gradoAlcoholAgresor">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.gradoAlcoholAgresorList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['gradoAlcoholAgresor'].hasError('required') && lesionAgresorCreateForm.controls['gradoAlcoholAgresor'].touched"
+              class="text-danger support-text">GradoAlcoholAgresor es requerido.<br>
+            </small>
+
+
+          </div>
+
+            <div style="width: 19%;margin-left: 1%;">
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="ObjetoAgresion"
+                          formControlName="objetoAgresion">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.objetoAgresionList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['objetoAgresion'].hasError('required') && lesionAgresorCreateForm.controls['objetoAgresion'].touched"
+              class="text-danger support-text">ObjetoAgresion es requerido.<br>
+            </small>
+
+
+          </div>
+
+            <div style="width: 19%;margin-left: 1%;">
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="TipoAgresion"
+                          formControlName="tipoAgresion">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.tipoAgresionList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionAgresorCreateForm.controls['tipoAgresion'].hasError('required') && lesionAgresorCreateForm.controls['tipoAgresion'].touched"
+              class="text-danger support-text">TipoAgresion es requerido.<br>
+            </small>
+
+
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <button mat-raised-button
+                mat-button
+                type="submit"
+                color="primary"
+                class="mr-1"
+                style="margin-left: 25%;"
+                [disabled]="!lesionAgresorCreateForm.valid">Grabar
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div
+    *ngIf="selectedLesionAgresorList">
+    <div class="w-100 row"
+         *ngFor="let lesionAgresor of selectedLesionAgresorList">
+
+      <div class="col-10">
+        <div class="row lesion-agresor-list-row">
+          <div class="col-2">
+            <span>{{lesionAgresor.id.codigoAgresor}} {{lesionAgresor.agresor.apellidos}} {{lesionAgresor.agresor.nombres}}</span>
+          </div>
+
+          <div class="col-2">
+            <span>{{lesionAgresor.relacionAgresor.descripcion}}</span>
+          </div>
+
+          <div class="col-2">
+            <span>{{lesionAgresor.indicioEstupefacientes.descripcion}}</span>
+          </div>
+
+          <div class="col-2">
+            <span>{{lesionAgresor.gradoAlcoholAgresor.descripcion}}</span>
+          </div>
+
+          <div class="col-2">
+            <span>{{lesionAgresor.objetoAgresion.descripcion}}</span>
+          </div>
+
+          <div class="col-2">
+            <span>{{lesionAgresor.tipoAgresion.descripcion}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <button
+          mat-icon-button
+          (click)="selectedLesionAgresorList.splice(selectedLesionAgresorList.indexOf(lesionAgresor), 1)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onLesionAgresorDialogDialogOk()">Ok
+    </button>
+    <!--// **********************2019-03-20 created****************************//-->
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onLesionAgresorDialogDialogNew()">Nuevo
+    </button>
+    <!--// **********************2019-03-20 created****************************//-->
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onLesionAgresorDialogDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>
+
+
+<ng-template #lesionVictimaDialog>
+  <div mat-dialog-content>
+    <p>LesionVictima</p>
+  </div>
+
+  <form
+    [formGroup]="lesionVictimaCreateForm"
+    (ngSubmit)="createLesionVictima()">
+
+    <div class="w-100 row">
+
+      <div class="col-10">
+        <div class="row">
+          <div class="col-3">
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                placeholder="Victima"
+                [matAutocomplete]="autoComplete4VictimaSelect"
+                formControlName="victima">
+            </mat-form-field>
+
+            <mat-autocomplete
+              #autoComplete4VictimaSelect="matAutocomplete"
+              [displayWith]="victimaAutoCompleteDisplayWith"
+              (optionSelected)="onVictimaSelectOptionSelected($event)">
+              <mat-option
+                *ngFor="let item of victimaFiltered | async"
+                [value]="item">{{item.victimaApellidos}} {{item.victimaNombres}}
+              </mat-option>
+            </mat-autocomplete>
+
+            <small
+              *ngIf="lesionVictimaCreateForm.controls['victima'].hasError('required') && lesionVictimaCreateForm.controls['victima'].touched"
+              class="text-danger support-text">Victima es requerido.<br>
+            </small>
+
+          </div>
+
+          <div class="col-3">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="RangoLesion"
+                          formControlName="rangoLesion">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.rangoLesionList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionVictimaCreateForm.controls['rangoLesion'].hasError('required') && lesionVictimaCreateForm.controls['rangoLesion'].touched"
+              class="text-danger support-text">RangoLesion es requerido.<br>
+            </small>
+
+
+          </div>
+
+          <div class="col-3">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="IndicioEstupefaciente"
+                          formControlName="indicioEstupefacientes">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.indicioEstupefacientesList"
+                  [value]="item">{{item.descripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionVictimaCreateForm.controls['indicioEstupefacientes'].hasError('required') && lesionVictimaCreateForm.controls['indicioEstupefacientes'].touched"
+              class="text-danger support-text">IndicioEstupefaciente es requerido.<br>
+            </small>
+
+
+          </div>
+
+          <div class="col-3">
+
+
+            <mat-form-field class="w-100">
+              <mat-select placeholder="GradoAlcoholVictima"
+                          formControlName="gradoAlcoholVictima">
+                <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+                <mat-option
+                  *ngFor="let item of pageData.gradoAlcoholVictimaList"
+                  [value]="item">{{item.gradoAlcoholVictimaDescripcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <small
+              *ngIf="lesionVictimaCreateForm.controls['gradoAlcoholVictima'].hasError('required') && lesionVictimaCreateForm.controls['gradoAlcoholVictima'].touched"
+              class="text-danger support-text">GradoAlcoholVictima es requerido.<br>
+            </small>
+
+
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="col-2">
+        <button mat-raised-button
+                mat-button
+                type="submit"
+                color="primary"
+                class="mr-1"
+                [disabled]="!lesionVictimaCreateForm.valid">Grabar
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div
+    *ngIf="selectedLesionVictimaList">
+    <div class="w-100 row"
+         *ngFor="let lesionVictima of selectedLesionVictimaList">
+
+      <div class="col-10">
+        <div class="row lesion-agresor-list-row">
+          <div class="col-3">
+            <span>{{lesionVictima.id.codigoVictima}} {{lesionVictima.victima.victimaApellidos}} {{lesionVictima.victima.victimaNombres}}</span>
+          </div>
+
+          <div class="col-3">
+            <span>{{lesionVictima.rangoLesion.descripcion}}</span>
+          </div>
+
+          <div class="col-3">
+            <span>{{lesionVictima.indicioEstupefacientes.descripcion}}</span>
+          </div>
+
+          <div class="col-3">
+            <span>{{lesionVictima.gradoAlcoholVictima.gradoAlcoholVictimaDescripcion}}</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-2">
+        <button
+          mat-icon-button
+          (click)="selectedLesionVictimaList.splice(selectedLesionVictimaList.indexOf(lesionVictima), 1)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onLesionVictimaDialogDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onLesionVictimaDialogDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>
+

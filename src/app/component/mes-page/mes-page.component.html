@@ -1,0 +1,198 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Mes</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="mesCodigo" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>MesCodigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mesCodigo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mesDescripcion" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>MesDescripcion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mesDescripcion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </table>
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MesCodigo"
+                 type="number"
+                 step="1"
+                 min="1"
+                 formControlName="mesCodigo">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mesCodigo'].hasError('required') && createForm.controls['mesCodigo'].touched"
+          class="text-danger support-text">MesCodigo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MesDescripcion"
+                 maxlength="255"
+                 formControlName="mesDescripcion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mesDescripcion'].hasError('required') && createForm.controls['mesDescripcion'].touched"
+          class="text-danger support-text">MesDescripcion es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MesCodigo"
+                 type="number"
+                 step="1"
+                 min="1"
+                 formControlName="mesCodigo">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mesCodigo'].hasError('required') && editForm.controls['mesCodigo'].touched"
+          class="text-danger support-text">MesCodigo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MesDescripcion"
+                 maxlength="255"
+                 formControlName="mesDescripcion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mesDescripcion'].hasError('required') && editForm.controls['mesDescripcion'].touched"
+          class="text-danger support-text">MesDescripcion es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+

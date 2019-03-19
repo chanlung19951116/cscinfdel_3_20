@@ -1,0 +1,1596 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">MuertesViolentas</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="mvCodigoUnico" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoUnico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoUnico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvSecuencial">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Secuencial</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvSecuencial}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoParroquia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoParroquia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoParroquia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoFiscalia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscalia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoFiscalia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoFiscal">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscal</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoFiscal}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvNumeroExpedienteFiscalia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroExpedienteFiscalia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvNumeroExpedienteFiscalia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvFechaDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvFechaDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvNumeroExpediente">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroExpediente</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvNumeroExpediente}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoTipoMuerte">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoMuerte</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoTipoMuerte}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoVictima">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoVictima</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoVictima}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvFechaLevantamiento">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaLevantamiento</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvFechaLevantamiento}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvHoraLevantamiento">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>HoraLevantamiento</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvHoraLevantamiento}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodLugarLevantamiento">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodLugarLevantamiento</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodLugarLevantamiento}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvFehaHecho">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FehaHecho</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvFehaHecho}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoDia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoDia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoDia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoMes">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMes</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoMes}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoAnio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoAnio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoAnio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvHora">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Hora</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvHora}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvMinutos">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Minutos</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvMinutos}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvDireccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Direccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvDireccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoArmMedioSuceso">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoArmMedioSuceso</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoArmMedioSuceso}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoMotivoMuerte">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMotivoMuerte</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoMotivoMuerte}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoAlcohol">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoAlcohol</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoAlcohol}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvHistorialClinico">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>HistorialClinico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvHistorialClinico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoLugarTranslado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoLugarTranslado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoLugarTranslado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoMedico">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMedico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoMedico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvDisect">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Disect</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvDisect}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvDelitoFlagrante">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>DelitoFlagrante</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvDelitoFlagrante | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvObservaciones">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Observaciones</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvObservaciones}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvFechaActualizacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaActualizacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvFechaActualizacion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoDigitadorActual">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoDigitadorActual</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoDigitadorActual}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvArchivo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Archivo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvArchivo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvArchivo2">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Archivo2</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvArchivo2}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvTipoVehiculoVictima">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>TipoVehiculoVictima</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvTipoVehiculoVictima}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvVictimaConduce">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>VictimaConduce</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvVictimaConduce | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvMuerteViolentaPol">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>MuerteViolentaPol</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvMuerteViolentaPol}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoRestosVictimas">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoRestosVictimas</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoRestosVictimas}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvCodigoGeo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoGeo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvCodigoGeo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="mvEstado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.mvEstado | estado}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Secuencial"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvSecuencial">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvSecuencial'].hasError('required') && createForm.controls['mvSecuencial'].touched"
+          class="text-danger support-text">Secuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoParroquia"
+                      formControlName="mvCodigoParroquia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['mvCodigoParroquia'].hasError('required') && createForm.controls['mvCodigoParroquia'].touched"
+          class="text-danger support-text">CodigoParroquia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscalia"
+                      formControlName="mvCodigoFiscalia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['mvCodigoFiscalia'].hasError('required') && createForm.controls['mvCodigoFiscalia'].touched"
+          class="text-danger support-text">CodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscal"
+                      formControlName="mvCodigoFiscal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['mvCodigoFiscal'].hasError('required') && createForm.controls['mvCodigoFiscal'].touched"
+          class="text-danger support-text">CodigoFiscal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroExpedienteFiscalia"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvNumeroExpedienteFiscalia">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvNumeroExpedienteFiscalia'].hasError('required') && createForm.controls['mvNumeroExpedienteFiscalia'].touched"
+          class="text-danger support-text">NumeroExpedienteFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaDenunciaPicker4Create"
+            placeholder="FechaDenuncia"
+            formControlName="mvFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaDenunciaPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaDenunciaPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvFechaDenuncia'].hasError('required') && createForm.controls['mvFechaDenuncia'].touched"
+          class="text-danger support-text">FechaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroExpediente"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvNumeroExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvNumeroExpediente'].hasError('required') && createForm.controls['mvNumeroExpediente'].touched"
+          class="text-danger support-text">mvNumeroExpediente es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoMuerte"
+                      formControlName="mvCodigoTipoMuerte">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.tipoMuerteList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoTipoMuerte'].hasError('required') && createForm.controls['mvCodigoTipoMuerte'].touched"
+          class="text-danger support-text">CodigoTipoMuerte es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoVictima"
+                 (click)="openVictimaSelectDialog()"
+                 readonly
+                 formControlName="mvCodigoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoVictima'].hasError('required') && createForm.controls['mvCodigoVictima'].touched"
+          class="text-danger support-text">CodigoVictima es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaLevantamientoPicker4Create"
+            placeholder="FechaLevantamiento"
+            formControlName="mvFechaLevantamiento">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaLevantamientoPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaLevantamientoPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvFechaLevantamiento'].hasError('required') && createForm.controls['mvFechaLevantamiento'].touched"
+          class="text-danger support-text">FechaLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HoraLevantamiento"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvHoraLevantamiento">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvHoraLevantamiento'].hasError('required') && createForm.controls['mvHoraLevantamiento'].touched"
+          class="text-danger support-text">HoraLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodLugarLevantamiento"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvCodLugarLevantamiento">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodLugarLevantamiento'].hasError('required') && createForm.controls['mvCodLugarLevantamiento'].touched"
+          class="text-danger support-text">CodLugarLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FehaHecho"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvFehaHecho">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvFehaHecho'].hasError('required') && createForm.controls['mvFehaHecho'].touched"
+          class="text-danger support-text">FehaHecho es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoDia"
+                      formControlName="mvCodigoDia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoDia'].hasError('required') && createForm.controls['mvCodigoDia'].touched"
+          class="text-danger support-text">CodigoDia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMes"
+                      formControlName="mvCodigoMes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoMes'].hasError('required') && createForm.controls['mvCodigoMes'].touched"
+          class="text-danger support-text">CodigoMes es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoAnio"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvCodigoAnio">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoAnio'].hasError('required') && createForm.controls['mvCodigoAnio'].touched"
+          class="text-danger support-text">CodigoAnio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Hora"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvHora">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvHora'].hasError('required') && createForm.controls['mvHora'].touched"
+          class="text-danger support-text">Hora es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Minutos"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvMinutos">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvMinutos'].hasError('required') && createForm.controls['mvMinutos'].touched"
+          class="text-danger support-text">Minutos es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvDireccion'].hasError('required') && createForm.controls['mvDireccion'].touched"
+          class="text-danger support-text">mvDireccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoArmMedioSuceso"
+                      formControlName="mvCodigoArmMedioSuceso">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.armMedioSucesoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoArmMedioSuceso'].hasError('required') && createForm.controls['mvCodigoArmMedioSuceso'].touched"
+          class="text-danger support-text">CodigoArmMedioSuceso es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="mvCodigoMotivoMuerte"
+                      formControlName="mvCodigoMotivoMuerte">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.motivoMuerteList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoMotivoMuerte'].hasError('required') && createForm.controls['mvCodigoMotivoMuerte'].touched"
+          class="text-danger support-text">mvCodigoMotivoMuerte es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoAlcohol"
+                      formControlName="mvCodigoAlcohol">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.alcoholVictimaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoAlcohol'].hasError('required') && createForm.controls['mvCodigoAlcohol'].touched"
+          class="text-danger support-text">CodigoAlcohol es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HistorialClinico"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvHistorialClinico">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvHistorialClinico'].hasError('required') && createForm.controls['mvHistorialClinico'].touched"
+          class="text-danger support-text">HistorialClinico es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoLugarTranslado"
+                      formControlName="mvCodigoLugarTranslado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.lugarTrasladoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoLugarTranslado'].hasError('required') && createForm.controls['mvCodigoLugarTranslado'].touched"
+          class="text-danger support-text">CodigoLugarTranslado es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMedico"
+                      formControlName="mvCodigoMedico">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.medicoList"
+              [value]="item.medicoCodigo">{{item.medicoApellidos}} {{item.medicoNombres}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoMedico'].hasError('required') && createForm.controls['mvCodigoMedico'].touched"
+          class="text-danger support-text">CodigoMedico es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Disect"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvDisect">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvDisect'].hasError('required') && createForm.controls['mvDisect'].touched"
+          class="text-danger support-text">Disect es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="DelitoFlagrante"
+                      formControlName="mvDelitoFlagrante">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvDelitoFlagrante'].hasError('required') && createForm.controls['mvDelitoFlagrante'].touched"
+          class="text-danger support-text">DelitoFlagrante es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Observaciones"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvObservaciones">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvObservaciones'].hasError('required') && createForm.controls['mvObservaciones'].touched"
+          class="text-danger support-text">Observaciones es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaActualizacionPicker4Create"
+            placeholder="FechaActualizacion"
+            formControlName="mvFechaActualizacion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaActualizacionPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaActualizacionPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvFechaActualizacion'].hasError('required') && createForm.controls['mvFechaActualizacion'].touched"
+          class="text-danger support-text">FechaActualizacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoDigitadorActual"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvCodigoDigitadorActual">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoDigitadorActual'].hasError('required') && createForm.controls['mvCodigoDigitadorActual'].touched"
+          class="text-danger support-text">CodigoDigitadorActual es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Archivo"
+                 type="text"
+                 maxlength="30"
+                 formControlName="mvArchivo">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvArchivo'].hasError('required') && createForm.controls['mvArchivo'].touched"
+          class="text-danger support-text">Archivo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Archivo2"
+                 type="text"
+                 maxlength="30"
+                 formControlName="mvArchivo2">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvArchivo2'].hasError('required') && createForm.controls['mvArchivo2'].touched"
+          class="text-danger support-text">Archivo2 es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="TipoVehiculoVictima"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvTipoVehiculoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvTipoVehiculoVictima'].hasError('required') && createForm.controls['mvTipoVehiculoVictima'].touched"
+          class="text-danger support-text">TipoVehiculoVictima es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="VictimaConduce"
+                      formControlName="mvVictimaConduce">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvVictimaConduce'].hasError('required') && createForm.controls['mvVictimaConduce'].touched"
+          class="text-danger support-text">VictimaConduce es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MuerteViolentaPol"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvMuerteViolentaPol">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvMuerteViolentaPol'].hasError('required') && createForm.controls['mvMuerteViolentaPol'].touched"
+          class="text-danger support-text">MuerteViolentaPol es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoRestosVictimas"
+                      formControlName="mvCodigoRestosVictimas">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.restoVictimaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoRestosVictimas'].hasError('required') && createForm.controls['mvCodigoRestosVictimas'].touched"
+          class="text-danger support-text">CodigoRestosVictimas es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGeo"
+                      formControlName="mvCodigoGeo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY:
+              {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvCodigoGeo'].hasError('required') && createForm.controls['mvCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="mvEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['mvEstado'].hasError('required') && createForm.controls['mvEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.mvCodigoUnico}}</span>
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Secuencial"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvSecuencial">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvSecuencial'].hasError('required') && editForm.controls['mvSecuencial'].touched"
+          class="text-danger support-text">Secuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoParroquia"
+                      formControlName="mvCodigoParroquia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['mvCodigoParroquia'].hasError('required') && editForm.controls['mvCodigoParroquia'].touched"
+          class="text-danger support-text">CodigoParroquia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscalia"
+                      formControlName="mvCodigoFiscalia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['mvCodigoFiscalia'].hasError('required') && editForm.controls['mvCodigoFiscalia'].touched"
+          class="text-danger support-text">CodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoFiscal"
+                      formControlName="mvCodigoFiscal">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['mvCodigoFiscal'].hasError('required') && editForm.controls['mvCodigoFiscal'].touched"
+          class="text-danger support-text">CodigoFiscal es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroExpedienteFiscalia"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvNumeroExpedienteFiscalia">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvNumeroExpedienteFiscalia'].hasError('required') && editForm.controls['mvNumeroExpedienteFiscalia'].touched"
+          class="text-danger support-text">NumeroExpedienteFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaDenunciaPicker4Edit"
+            placeholder="FechaDenuncia"
+            formControlName="mvFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaDenunciaPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaDenunciaPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvFechaDenuncia'].hasError('required') && editForm.controls['mvFechaDenuncia'].touched"
+          class="text-danger support-text">FechaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroExpediente"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvNumeroExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvNumeroExpediente'].hasError('required') && editForm.controls['mvNumeroExpediente'].touched"
+          class="text-danger support-text">mvNumeroExpediente es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoTipoMuerte"
+                      formControlName="mvCodigoTipoMuerte">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.tipoMuerteList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoTipoMuerte'].hasError('required') && editForm.controls['mvCodigoTipoMuerte'].touched"
+          class="text-danger support-text">CodigoTipoMuerte es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoVictima"
+                 (click)="openVictimaSelectDialog()"
+                 readonly
+                 formControlName="mvCodigoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoVictima'].hasError('required') && editForm.controls['mvCodigoVictima'].touched"
+          class="text-danger support-text">CodigoVictima es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaLevantamientoPicker4Edit"
+            placeholder="FechaLevantamiento"
+            formControlName="mvFechaLevantamiento">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaLevantamientoPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaLevantamientoPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvFechaLevantamiento'].hasError('required') && editForm.controls['mvFechaLevantamiento'].touched"
+          class="text-danger support-text">FechaLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HoraLevantamiento"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvHoraLevantamiento">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvHoraLevantamiento'].hasError('required') && editForm.controls['mvHoraLevantamiento'].touched"
+          class="text-danger support-text">HoraLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodLugarLevantamiento"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvCodLugarLevantamiento">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodLugarLevantamiento'].hasError('required') && editForm.controls['mvCodLugarLevantamiento'].touched"
+          class="text-danger support-text">CodLugarLevantamiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="FehaHecho"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvFehaHecho">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvFehaHecho'].hasError('required') && editForm.controls['mvFehaHecho'].touched"
+          class="text-danger support-text">FehaHecho es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoDia"
+                      formControlName="mvCodigoDia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoDia'].hasError('required') && editForm.controls['mvCodigoDia'].touched"
+          class="text-danger support-text">CodigoDia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMes"
+                      formControlName="mvCodigoMes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoMes'].hasError('required') && editForm.controls['mvCodigoMes'].touched"
+          class="text-danger support-text">CodigoMes es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoAnio"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvCodigoAnio">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoAnio'].hasError('required') && editForm.controls['mvCodigoAnio'].touched"
+          class="text-danger support-text">CodigoAnio es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Hora"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvHora">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvHora'].hasError('required') && editForm.controls['mvHora'].touched"
+          class="text-danger support-text">Hora es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Minutos"
+                 type="number"
+                 min="0"
+                 step="1"
+                 formControlName="mvMinutos">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvMinutos'].hasError('required') && editForm.controls['mvMinutos'].touched"
+          class="text-danger support-text">Minutos es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvDireccion'].hasError('required') && editForm.controls['mvDireccion'].touched"
+          class="text-danger support-text">mvDireccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoArmMedioSuceso"
+                      formControlName="mvCodigoArmMedioSuceso">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.armMedioSucesoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoArmMedioSuceso'].hasError('required') && editForm.controls['mvCodigoArmMedioSuceso'].touched"
+          class="text-danger support-text">CodigoArmMedioSuceso es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="mvCodigoMotivoMuerte"
+                      formControlName="mvCodigoMotivoMuerte">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.motivoMuerteList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoMotivoMuerte'].hasError('required') && editForm.controls['mvCodigoMotivoMuerte'].touched"
+          class="text-danger support-text">mvCodigoMotivoMuerte es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoAlcohol"
+                      formControlName="mvCodigoAlcohol">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.alcoholVictimaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoAlcohol'].hasError('required') && editForm.controls['mvCodigoAlcohol'].touched"
+          class="text-danger support-text">CodigoAlcohol es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HistorialClinico"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvHistorialClinico">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvHistorialClinico'].hasError('required') && editForm.controls['mvHistorialClinico'].touched"
+          class="text-danger support-text">HistorialClinico es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoLugarTranslado"
+                      formControlName="mvCodigoLugarTranslado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.lugarTrasladoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoLugarTranslado'].hasError('required') && editForm.controls['mvCodigoLugarTranslado'].touched"
+          class="text-danger support-text">CodigoLugarTranslado es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoMedico"
+                      formControlName="mvCodigoMedico">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.medicoList"
+              [value]="item.medicoCodigo">{{item.medicoApellidos}} {{item.medicoNombres}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoMedico'].hasError('required') && editForm.controls['mvCodigoMedico'].touched"
+          class="text-danger support-text">CodigoMedico es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Disect"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvDisect">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvDisect'].hasError('required') && editForm.controls['mvDisect'].touched"
+          class="text-danger support-text">Disect es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="DelitoFlagrante"
+                      formControlName="mvDelitoFlagrante">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvDelitoFlagrante'].hasError('required') && editForm.controls['mvDelitoFlagrante'].touched"
+          class="text-danger support-text">DelitoFlagrante es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Observaciones"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvObservaciones">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvObservaciones'].hasError('required') && editForm.controls['mvObservaciones'].touched"
+          class="text-danger support-text">Observaciones es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="mvFechaActualizacionPicker4Edit"
+            placeholder="FechaActualizacion"
+            formControlName="mvFechaActualizacion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="mvFechaActualizacionPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #mvFechaActualizacionPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvFechaActualizacion'].hasError('required') && editForm.controls['mvFechaActualizacion'].touched"
+          class="text-danger support-text">FechaActualizacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="CodigoDigitadorActual"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvCodigoDigitadorActual">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoDigitadorActual'].hasError('required') && editForm.controls['mvCodigoDigitadorActual'].touched"
+          class="text-danger support-text">CodigoDigitadorActual es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Archivo"
+                 type="text"
+                 maxlength="30"
+                 formControlName="mvArchivo">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvArchivo'].hasError('required') && editForm.controls['mvArchivo'].touched"
+          class="text-danger support-text">Archivo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Archivo2"
+                 type="text"
+                 maxlength="30"
+                 formControlName="mvArchivo2">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvArchivo2'].hasError('required') && editForm.controls['mvArchivo2'].touched"
+          class="text-danger support-text">Archivo2 es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="TipoVehiculoVictima"
+                 type="text"
+                 maxlength="10"
+                 formControlName="mvTipoVehiculoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvTipoVehiculoVictima'].hasError('required') && editForm.controls['mvTipoVehiculoVictima'].touched"
+          class="text-danger support-text">TipoVehiculoVictima es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="VictimaConduce"
+                      formControlName="mvVictimaConduce">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvVictimaConduce'].hasError('required') && editForm.controls['mvVictimaConduce'].touched"
+          class="text-danger support-text">VictimaConduce es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MuerteViolentaPol"
+                 type="text"
+                 maxlength="255"
+                 formControlName="mvMuerteViolentaPol">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvMuerteViolentaPol'].hasError('required') && editForm.controls['mvMuerteViolentaPol'].touched"
+          class="text-danger support-text">MuerteViolentaPol es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoRestosVictimas"
+                      formControlName="mvCodigoRestosVictimas">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.restoVictimaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoRestosVictimas'].hasError('required') && editForm.controls['mvCodigoRestosVictimas'].touched"
+          class="text-danger support-text">CodigoRestosVictimas es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="CodigoGeo"
+                      formControlName="mvCodigoGeo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY:
+              {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvCodigoGeo'].hasError('required') && editForm.controls['mvCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="mvEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['mvEstado'].hasError('required') && editForm.controls['mvEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+        
+        
+        
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+
+<ng-template #victimaSelectDialog>
+  <div mat-dialog-content>
+    <p>Selecionar Victima</p>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Victima"
+      [matAutocomplete]="autoComplete4VictimaSelect"
+      [formControl]="victimaSelectFilterKeyCtrl">
+  </mat-form-field>
+
+  <mat-autocomplete
+    #autoComplete4VictimaSelect="matAutocomplete"
+    [displayWith]="victimaAutoCompleteDisplayWith"
+    (optionSelected)="onVictimaSelectOptionSelected($event)">
+    <mat-option
+      *ngFor="let item of victimaFiltered | async"
+      [value]="item">
+      {{item.victimaApellidos}} {{item.victimaNombres}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <span
+    *ngIf="selectedVictima">Registro seleccionado: {{selectedVictima.victimaApellidos}} {{selectedVictima.victimaNombres}}</span>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onVictimaSelectDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onVictimaSelectDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>

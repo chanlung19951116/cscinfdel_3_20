@@ -1,0 +1,1588 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">PersonasDesaparecidas</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+
+          <ng-container matColumnDef="pdCodigoUnico" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoUnico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoUnico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoParroquia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoParroquia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoParroquia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdNumeroSecuencial">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroSecuencial</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdNumeroSecuencial}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdNumeroActoAdministrativo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroActoAdministrativo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdNumeroActoAdministrativo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdRespnsableScanner">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>RespnsableScanner</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdRespnsableScanner}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoFiscalia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscalia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoFiscalia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoFiscal">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoFiscal</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoFiscal}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdNumeroDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdNumeroDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdFechaDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdFechaDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdFechaDesaparicion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaDesaparicion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdFechaDesaparicion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdParroquiaDesaparicion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>ParroquiaDesaparicion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdParroquiaDesaparicion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoDia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoDia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoDia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoMes">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMes</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoMes}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoAnio">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoAnio</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoAnio}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdHora">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Hora</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdHora}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdMinutos">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Minutos</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdMinutos}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdNumerosDesaparecidos">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumerosDesaparecidos</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdNumerosDesaparecidos}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdPersonaDenuncia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>PersonaDenuncia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdPersonaDenuncia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoLugarLocalizado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoLugarLocalizado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoLugarLocalizado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdFechaLocalizado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaLocalizado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdFechaLocalizado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoMotivoDesaparicion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoMotivoDesaparicion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoMotivoDesaparicion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCondicionEncontrado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CondicionEncontrado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCondicionEncontrado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdFechaIngreso">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaIngreso</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdFechaIngreso}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdObervacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Obervacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdObervacion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdGeoreferencia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Georeferencia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdGeoreferencia | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoGeo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoGeo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoGeo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdPorcentajeDiscapacidad">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>PorcentajeDiscapacidad</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdPorcentajeDiscapacidad}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdLocalizado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Localizado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdLocalizado | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdEstado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdEstado | estado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoAgresor">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoAgresor</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoAgresor}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCodigoTipoPunto">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CodigoTipoPunto</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCodigoTipoPunto}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pdCondicionRegresa">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>CondicionRegresa</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.pdCondicionRegresa}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </table>
+
+      </div>
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoParroquia"
+            formControlName="pdCodigoParroquia">
+            <mat-option
+              *ngFor="let item of pageData.parroquiaDesaparicionList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoParroquia'].hasError('required') && createForm.controls['pdCodigoParroquia'].touched"
+          class="text-danger support-text">pdCodigoParroquia es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroSecuencial"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroSecuencial"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdNumeroSecuencial'].hasError('required') && createForm.controls['pdNumeroSecuencial'].touched"
+          class="text-danger support-text">pdNumeroSecuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroActoAdministrativo"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroActoAdministrativo"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdNumeroActoAdministrativo'].hasError('required') && createForm.controls['pdNumeroActoAdministrativo'].touched"
+          class="text-danger support-text">pdNumeroActoAdministrativo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdRespnsableScanner"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdRespnsableScanner"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdRespnsableScanner'].hasError('required') && createForm.controls['pdRespnsableScanner'].touched"
+          class="text-danger support-text">pdRespnsableScanner es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoFiscalia"
+            formControlName="pdCodigoFiscalia">
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoFiscalia'].hasError('required') && createForm.controls['pdCodigoFiscalia'].touched"
+          class="text-danger support-text">pdCodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoFiscal"
+            formControlName="pdCodigoFiscal">
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoFiscal'].hasError('required') && createForm.controls['pdCodigoFiscal'].touched"
+          class="text-danger support-text">pdCodigoFiscal es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroDenuncia"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdNumeroDenuncia'].hasError('required') && createForm.controls['pdNumeroDenuncia'].touched"
+          class="text-danger support-text">pdNumeroDenuncia es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaDenunciaPicker4Create"
+            placeholder="pdFechaDenuncia"
+            formControlName="pdFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaDenunciaPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaDenunciaPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdFechaDenuncia'].hasError('required') && createForm.controls['pdFechaDenuncia'].touched"
+          class="text-danger support-text">pdFechaDenuncia es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaDesaparicionPicker4Create"
+            placeholder="pdFechaDesaparicion"
+            formControlName="pdFechaDesaparicion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaDesaparicionPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaDesaparicionPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdFechaDesaparicion'].hasError('required') && createForm.controls['pdFechaDesaparicion'].touched"
+          class="text-danger support-text">pdFechaDesaparicion es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdParroquiaDesaparicion"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdParroquiaDesaparicion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdParroquiaDesaparicion'].hasError('required') && createForm.controls['pdParroquiaDesaparicion'].touched"
+          class="text-danger support-text">pdParroquiaDesaparicion es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoDia"
+            formControlName="pdCodigoDia">
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoDia'].hasError('required') && createForm.controls['pdCodigoDia'].touched"
+          class="text-danger support-text">pdCodigoDia es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoMes"
+            formControlName="pdCodigoMes">
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoMes'].hasError('required') && createForm.controls['pdCodigoMes'].touched"
+          class="text-danger support-text">pdCodigoMes es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoAnio"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoAnio"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoAnio'].hasError('required') && createForm.controls['pdCodigoAnio'].touched"
+          class="text-danger support-text">pdCodigoAnio es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdHora"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdHora"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdHora'].hasError('required') && createForm.controls['pdHora'].touched"
+          class="text-danger support-text">pdHora es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdMinutos"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdMinutos"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdMinutos'].hasError('required') && createForm.controls['pdMinutos'].touched"
+          class="text-danger support-text">pdMinutos es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumerosDesaparecidos"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdNumerosDesaparecidos"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdNumerosDesaparecidos'].hasError('required') && createForm.controls['pdNumerosDesaparecidos'].touched"
+          class="text-danger support-text">pdNumerosDesaparecidos es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPersonaDenuncia"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdPersonaDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdPersonaDenuncia'].hasError('required') && createForm.controls['pdPersonaDenuncia'].touched"
+          class="text-danger support-text">pdPersonaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPersonaDenuncia"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdPersonaDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdPersonaDenuncia'].hasError('required') && createForm.controls['pdPersonaDenuncia'].touched"
+          class="text-danger support-text">pdPersonaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoLugarLocalizado"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoLugarLocalizado"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoLugarLocalizado'].hasError('required') && createForm.controls['pdCodigoLugarLocalizado'].touched"
+          class="text-danger support-text">pdCodigoLugarLocalizado es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaLocalizadoPicker4Create"
+            placeholder="pdFechaLocalizado"
+            formControlName="pdFechaLocalizado">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaLocalizadoPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaLocalizadoPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdFechaLocalizado'].hasError('required') && createForm.controls['pdFechaLocalizado'].touched"
+          class="text-danger support-text">pdFechaLocalizado es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoMotivoDesaparicion"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoMotivoDesaparicion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoMotivoDesaparicion'].hasError('required') && createForm.controls['pdCodigoMotivoDesaparicion'].touched"
+          class="text-danger support-text">pdCodigoMotivoDesaparicion es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCondicionEncontrado"
+            type="text"
+            maxlength="255"
+            formControlName="pdCondicionEncontrado"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCondicionEncontrado'].hasError('required') && createForm.controls['pdCondicionEncontrado'].touched"
+          class="text-danger support-text">pdCondicionEncontrado es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaIngresoPicker4Create"
+            placeholder="pdFechaIngreso"
+            formControlName="pdFechaIngreso">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaIngresoPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaIngresoPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdFechaIngreso'].hasError('required') && createForm.controls['pdFechaIngreso'].touched"
+          class="text-danger support-text">pdFechaIngreso es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdObervacion"
+            type="text"
+            maxlength="255"
+            formControlName="pdObervacion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdObervacion'].hasError('required') && createForm.controls['pdObervacion'].touched"
+          class="text-danger support-text">pdObervacion es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="pdGeoreferencia"
+                      formControlName="pdGeoreferencia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdGeoreferencia'].hasError('required') && createForm.controls['pdGeoreferencia'].touched"
+          class="text-danger support-text">pdGeoreferencia es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoGeo"
+            formControlName="pdCodigoGeo">
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY: {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoGeo'].hasError('required') && createForm.controls['pdCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPorcentajeDiscapacidad"
+            type="text"
+            maxlength="10"
+            formControlName="pdPorcentajeDiscapacidad"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdPorcentajeDiscapacidad'].hasError('required') && createForm.controls['pdPorcentajeDiscapacidad'].touched"
+          class="text-danger support-text">pdPorcentajeDiscapacidad es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="pdLocalizado"
+                      formControlName="pdLocalizado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdLocalizado'].hasError('required') && createForm.controls['pdLocalizado'].touched"
+          class="text-danger support-text">pdLocalizado es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="pdEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdEstado'].hasError('required') && createForm.controls['pdEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Agresor"
+                 (click)="openAgresorSelectDialog()"
+                 readonly
+                 formControlName="pdCodigoAgresor">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoAgresor'].hasError('required') && createForm.controls['pdCodigoAgresor'].touched"
+          class="text-danger support-text">Agresor es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoTipoPunto"
+            formControlName="pdCodigoTipoPunto">
+            <mat-option
+              *ngFor="let item of pageData.tipoPuntoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCodigoTipoPunto'].hasError('required') && createForm.controls['pdCodigoTipoPunto'].touched"
+          class="text-danger support-text">pdCodigoTipoPunto es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCondicionRegresa"
+            formControlName="pdCondicionRegresa">
+            <mat-option
+              *ngFor="let item of pageData.pdCondicionRegresaDesaparecidoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['pdCondicionRegresa'].hasError('required') && createForm.controls['pdCondicionRegresa'].touched"
+          class="text-danger support-text">pdCondicionRegresa es requerido.
+        </small>
+
+
+
+
+
+        <div class="d-flex justify-content-start">
+
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openVictimaSelectDialog()"
+                  color="primary">AmenazaVictima
+          </button>
+
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+
+
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.pdCodigoUnico}}</span>
+
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoParroquia"
+            formControlName="pdCodigoParroquia">
+            <mat-option
+              *ngFor="let item of pageData.parroquiaDesaparicionList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoParroquia'].hasError('required') && editForm.controls['pdCodigoParroquia'].touched"
+          class="text-danger support-text">pdCodigoParroquia es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroSecuencial"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroSecuencial"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdNumeroSecuencial'].hasError('required') && editForm.controls['pdNumeroSecuencial'].touched"
+          class="text-danger support-text">pdNumeroSecuencial es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroActoAdministrativo"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroActoAdministrativo"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdNumeroActoAdministrativo'].hasError('required') && editForm.controls['pdNumeroActoAdministrativo'].touched"
+          class="text-danger support-text">pdNumeroActoAdministrativo es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdRespnsableScanner"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdRespnsableScanner"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdRespnsableScanner'].hasError('required') && editForm.controls['pdRespnsableScanner'].touched"
+          class="text-danger support-text">pdRespnsableScanner es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoFiscalia"
+            formControlName="pdCodigoFiscalia">
+            <mat-option
+              *ngFor="let item of pageData.fiscaliaList"
+              [value]="item.fiscaliaCodigo">{{item.fiscaliaNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoFiscalia'].hasError('required') && editForm.controls['pdCodigoFiscalia'].touched"
+          class="text-danger support-text">pdCodigoFiscalia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoFiscal"
+            formControlName="pdCodigoFiscal">
+            <mat-option
+              *ngFor="let item of pageData.fiscalList"
+              [value]="item.fiscalCodigo">{{item.fiscalNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoFiscal'].hasError('required') && editForm.controls['pdCodigoFiscal'].touched"
+          class="text-danger support-text">pdCodigoFiscal es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumeroDenuncia"
+            type="text"
+            maxlength="10"
+            formControlName="pdNumeroDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdNumeroDenuncia'].hasError('required') && editForm.controls['pdNumeroDenuncia'].touched"
+          class="text-danger support-text">pdNumeroDenuncia es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaDenunciaPicker4Edit"
+            placeholder="pdFechaDenuncia"
+            formControlName="pdFechaDenuncia">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaDenunciaPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaDenunciaPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdFechaDenuncia'].hasError('required') && editForm.controls['pdFechaDenuncia'].touched"
+          class="text-danger support-text">pdFechaDenuncia es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaDesaparicionPicker4Edit"
+            placeholder="pdFechaDesaparicion"
+            formControlName="pdFechaDesaparicion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaDesaparicionPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaDesaparicionPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdFechaDesaparicion'].hasError('required') && editForm.controls['pdFechaDesaparicion'].touched"
+          class="text-danger support-text">pdFechaDesaparicion es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdParroquiaDesaparicion"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdParroquiaDesaparicion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdParroquiaDesaparicion'].hasError('required') && editForm.controls['pdParroquiaDesaparicion'].touched"
+          class="text-danger support-text">pdParroquiaDesaparicion es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoDia"
+            formControlName="pdCodigoDia">
+            <mat-option
+              *ngFor="let item of pageData.diaList"
+              [value]="item.codigoDia">{{item.descripcionDia}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoDia'].hasError('required') && editForm.controls['pdCodigoDia'].touched"
+          class="text-danger support-text">pdCodigoDia es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoMes"
+            formControlName="pdCodigoMes">
+            <mat-option
+              *ngFor="let item of pageData.mesList"
+              [value]="item.mesCodigo">{{item.mesDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoMes'].hasError('required') && editForm.controls['pdCodigoMes'].touched"
+          class="text-danger support-text">pdCodigoMes es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoAnio"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoAnio"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoAnio'].hasError('required') && editForm.controls['pdCodigoAnio'].touched"
+          class="text-danger support-text">pdCodigoAnio es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdHora"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdHora"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdHora'].hasError('required') && editForm.controls['pdHora'].touched"
+          class="text-danger support-text">pdHora es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdMinutos"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdMinutos"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdMinutos'].hasError('required') && editForm.controls['pdMinutos'].touched"
+          class="text-danger support-text">pdMinutos es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdNumerosDesaparecidos"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdNumerosDesaparecidos"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdNumerosDesaparecidos'].hasError('required') && editForm.controls['pdNumerosDesaparecidos'].touched"
+          class="text-danger support-text">pdNumerosDesaparecidos es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPersonaDenuncia"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdPersonaDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdPersonaDenuncia'].hasError('required') && editForm.controls['pdPersonaDenuncia'].touched"
+          class="text-danger support-text">pdPersonaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPersonaDenuncia"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdPersonaDenuncia"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdPersonaDenuncia'].hasError('required') && editForm.controls['pdPersonaDenuncia'].touched"
+          class="text-danger support-text">pdPersonaDenuncia es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoLugarLocalizado"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoLugarLocalizado"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoLugarLocalizado'].hasError('required') && editForm.controls['pdCodigoLugarLocalizado'].touched"
+          class="text-danger support-text">pdCodigoLugarLocalizado es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaLocalizadoPicker4Edit"
+            placeholder="pdFechaLocalizado"
+            formControlName="pdFechaLocalizado">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaLocalizadoPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaLocalizadoPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdFechaLocalizado'].hasError('required') && editForm.controls['pdFechaLocalizado'].touched"
+          class="text-danger support-text">pdFechaLocalizado es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCodigoMotivoDesaparicion"
+            type="number"
+            step="1"
+            min="0"
+            formControlName="pdCodigoMotivoDesaparicion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoMotivoDesaparicion'].hasError('required') && editForm.controls['pdCodigoMotivoDesaparicion'].touched"
+          class="text-danger support-text">pdCodigoMotivoDesaparicion es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdCondicionEncontrado"
+            type="text"
+            maxlength="255"
+            formControlName="pdCondicionEncontrado"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCondicionEncontrado'].hasError('required') && editForm.controls['pdCondicionEncontrado'].touched"
+          class="text-danger support-text">pdCondicionEncontrado es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="pdFechaIngresoPicker4Edit"
+            placeholder="pdFechaIngreso"
+            formControlName="pdFechaIngreso">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdFechaIngresoPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #pdFechaIngresoPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdFechaIngreso'].hasError('required') && editForm.controls['pdFechaIngreso'].touched"
+          class="text-danger support-text">pdFechaIngreso es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdObervacion"
+            type="text"
+            maxlength="255"
+            formControlName="pdObervacion"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdObervacion'].hasError('required') && editForm.controls['pdObervacion'].touched"
+          class="text-danger support-text">pdObervacion es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="pdGeoreferencia"
+                      formControlName="pdGeoreferencia">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdGeoreferencia'].hasError('required') && editForm.controls['pdGeoreferencia'].touched"
+          class="text-danger support-text">pdGeoreferencia es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="CodigoGeo"
+            formControlName="pdCodigoGeo">
+            <mat-option
+              *ngFor="let item of pageData.datosGeoReferenciacionList"
+              [value]="item.geoRefCodigo">geoRefCoordenadaX: {{item.geoRefCoordenadaX}} geoRefCoordenadaY: {{item.geoRefCoordenadaY}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoGeo'].hasError('required') && editForm.controls['pdCodigoGeo'].touched"
+          class="text-danger support-text">CodigoGeo es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            placeholder="pdPorcentajeDiscapacidad"
+            type="text"
+            maxlength="10"
+            formControlName="pdPorcentajeDiscapacidad"/>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdPorcentajeDiscapacidad'].hasError('required') && editForm.controls['pdPorcentajeDiscapacidad'].touched"
+          class="text-danger support-text">pdPorcentajeDiscapacidad es requerido.
+        </small>
+
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="pdLocalizado"
+                      formControlName="pdLocalizado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdLocalizado'].hasError('required') && editForm.controls['pdLocalizado'].touched"
+          class="text-danger support-text">pdLocalizado es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="pdEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdEstado'].hasError('required') && editForm.controls['pdEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Agresor"
+                 (click)="openAgresorSelectDialog()"
+                 readonly
+                 formControlName="pdCodigoAgresor">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoAgresor'].hasError('required') && editForm.controls['pdCodigoAgresor'].touched"
+          class="text-danger support-text">Agresor es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCodigoTipoPunto"
+            formControlName="pdCodigoTipoPunto">
+            <mat-option
+              *ngFor="let item of pageData.tipoPuntoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCodigoTipoPunto'].hasError('required') && editForm.controls['pdCodigoTipoPunto'].touched"
+          class="text-danger support-text">pdCodigoTipoPunto es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="pdCondicionRegresa"
+            formControlName="pdCondicionRegresa">
+            <mat-option
+              *ngFor="let item of pageData.pdCondicionRegresaDesaparecidoList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['pdCondicionRegresa'].hasError('required') && editForm.controls['pdCondicionRegresa'].touched"
+          class="text-danger support-text">pdCondicionRegresa es requerido.
+        </small>
+
+
+
+
+
+        <div class="d-flex justify-content-start">
+
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  class="mr-1"
+                  (click)="openVictimaSelectDialog()"
+                  color="primary">AmenazaVictima
+          </button>
+
+        </div>
+        
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #agresorSelectDialog>
+  <div mat-dialog-content>
+    <p>Selecionar Agresor</p>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Agresor"
+      [matAutocomplete]="autoComplete4AgresorSelect"
+      [formControl]="agresorSelectFilterKeyCtrl">
+  </mat-form-field>
+
+  <mat-autocomplete
+    #autoComplete4AgresorSelect="matAutocomplete"
+    [displayWith]="agresorAutoCompleteDisplayWith"
+    (optionSelected)="onAgresorSelectOptionSelected($event)">
+    <mat-option
+      *ngFor="let item of agresorFiltered | async"
+      [value]="item">{{item.apellidos}} {{item.nombres}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <div class="w-100 mt-1 mb-1">
+    <span class="">Registro seleccionado:<br></span>
+  </div>
+
+  <div
+    *ngIf="selectedAgresorList"
+    class="w-100">
+    <div
+      *ngFor="let item of selectedAgresorList"
+      class="d-flex w-100">
+      <span class="flex-grow-1">{{item.codigo}} - {{item.apellidos}} {{item.nombres}} </span>
+      <button
+        mat-icon-button
+        (click)="selectedAgresorList.splice(selectedAgresorList.indexOf(item), 1)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onAgresorSelectDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onAgresorSelectDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #victimaSelectDialog>
+  <div mat-dialog-content>
+    <p>Selecionar Victima</p>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Victima"
+      [matAutocomplete]="autoComplete4VictimaSelect"
+      [formControl]="victimaSelectFilterKeyCtrl">
+  </mat-form-field>
+
+  <mat-autocomplete
+    #autoComplete4VictimaSelect="matAutocomplete"
+    [displayWith]="victimaAutoCompleteDisplayWith"
+    (optionSelected)="onVictimaSelectOptionSelected($event)">
+    <mat-option
+      *ngFor="let item of victimaFiltered | async"
+      [value]="item">{{item.victimaApellidos}} {{item.victimaNombres}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <div class="w-100 mt-1 mb-1">
+    <span class="">Registro seleccionado:<br></span>
+  </div>
+
+  <div
+    *ngIf="selectedVictimaList"
+    class="w-100">
+    <div
+      *ngFor="let item of selectedVictimaList"
+      class="d-flex w-100">
+      <span class="flex-grow-1">{{item.victimaCodigo}} - {{item.victimaApellidos}} {{item.victimaNombres}} </span>
+      <button
+        mat-icon-button
+        (click)="selectedVictimaList.splice(selectedVictimaList.indexOf(item), 1)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onVictimaSelectDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onVictimaSelectDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>
+

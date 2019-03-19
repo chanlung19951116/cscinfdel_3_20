@@ -1,0 +1,372 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">LesionVictima</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="codigo" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Codigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.id.codigo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="codigoVictima" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Victima</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.id.codigoVictima}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="codigoRangoLesion" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>RangoLesion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoRangoLesion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="codigoIndicioEstupefacientes" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>IndicioEstupefacientes</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoIndicioEstupefacientes}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="codigoGradoAlcoholVictima" >
+            <mat-header-cell mat-header-cell *matHeaderCellDef>GradoAlcohol</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.codigoGradoAlcoholVictima}}</mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Lesiones"
+                      formControlName="codigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.lesionesList"
+              [value]="item.leCodigoUnico">{{item.leCodigoSecuencial}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['codigo'].hasError('required') && createForm.controls['codigo'].touched"
+          class="text-danger support-text">Lesiones es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Victimas"
+                 (click)="openVictimaSelectDialog()"
+                 readonly
+                 formControlName="codigoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoVictima'].hasError('required') && editForm.controls['codigoVictima'].touched"
+          class="text-danger support-text">Victima es requerido.
+        </small>
+
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="RangoLesion"
+                      formControlName="codigoRangoLesion">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.rangoLesionList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="createForm.controls['codigoRangoLesion'].hasError('required') && createForm.controls['codigoRangoLesion'].touched"
+          class="text-danger support-text">RangoLesion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="IndicioEstupefacientes"
+                      formControlName="codigoIndicioEstupefacientes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.indicioEstupefacientesList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoIndicioEstupefacientes'].hasError('required') && createForm.controls['codigoIndicioEstupefacientes'].touched"
+          class="text-danger support-text">IndicioEstupefacientes es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GradoAlcohol"
+                      formControlName="codigoGradoAlcoholVictima">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.gradoAlcoholVictimaList"
+              [value]="item.gradoAlcoholVictimaCodigo">{{item.gradoAlcoholVictimaDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['codigoGradoAlcoholVictima'].hasError('required') && createForm.controls['codigoGradoAlcoholVictima'].touched"
+          class="text-danger support-text">GradoAlcohol es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Lesiones"
+                      formControlName="codigo">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.lesionesList"
+              [value]="item.leCodigoUnico">{{item.leCodigoSecuencial}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['codigo'].hasError('required') && editForm.controls['codigo'].touched"
+          class="text-danger support-text">Lesiones es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Victimas"
+                 (click)="openVictimaSelectDialog()"
+                 readonly
+                 formControlName="codigoVictima">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoVictima'].hasError('required') && editForm.controls['codigoVictima'].touched"
+          class="text-danger support-text">Victima es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="RangoLesion"
+                      formControlName="codigoRangoLesion">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.rangoLesionList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['codigoRangoLesion'].hasError('required') && editForm.controls['codigoRangoLesion'].touched"
+          class="text-danger support-text">RangoLesion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="IndicioEstupefacientes"
+                      formControlName="codigoIndicioEstupefacientes">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.indicioEstupefacientesList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoIndicioEstupefacientes'].hasError('required') && editForm.controls['codigoIndicioEstupefacientes'].touched"
+          class="text-danger support-text">IndicioEstupefacientes es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GradoAlcohol"
+                      formControlName="codigoGradoAlcoholVictima">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+
+            <mat-option
+              *ngFor="let item of pageData.gradoAlcoholVictimaList"
+              [value]="item.gradoAlcoholVictimaCodigo">{{item.gradoAlcoholVictimaDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['codigoGradoAlcoholVictima'].hasError('required') && editForm.controls['codigoGradoAlcoholVictima'].touched"
+          class="text-danger support-text">GradoAlcohol es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #victimaSelectDialog>
+  <div mat-dialog-content>
+    <p>Selecionar Victima</p>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Victima"
+      [matAutocomplete]="autoComplete4VictimaSelect"
+      [formControl]="victimaSelectFilterKeyCtrl">
+  </mat-form-field>
+
+  <mat-autocomplete
+    #autoComplete4VictimaSelect="matAutocomplete"
+    [displayWith]="victimaAutoCompleteDisplayWith"
+    (optionSelected)="onVictimaSelectOptionSelected($event)">
+    <mat-option
+      *ngFor="let item of victimaFiltered | async"
+      [value]="item">
+      {{item.victimaApellidos}} {{item.victimaNombres}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <span
+    *ngIf="selectedVictima">Registro seleccionado: {{selectedVictima.victimaApellidos}} {{selectedVictima.victimaNombres}}</span>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onVictimaSelectDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onVictimaSelectDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>

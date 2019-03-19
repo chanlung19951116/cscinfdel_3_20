@@ -1,0 +1,316 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Medico</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input matInput #filter placeholder="Filtro">
+      </mat-form-field>
+      <div class="w-100" style="overflow-x: auto">
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="medicoCodigo" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Codigo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoCodigo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoIdentificacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Identificacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoIdentificacion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoNombres">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Nombres</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoNombres}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoApellidos">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Apellidos</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoApellidos}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoTelefono">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Telefono</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoTelefono}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoDireccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Direccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoDireccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="medicoEstado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.medicoEstado | estado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+
+    <!-- creating -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        [formGroup]="createForm"
+        (ngSubmit)="create()">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Identificacion"
+                 type="number"
+                 step="1"
+                 formControlName="medicoIdentificacion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['medicoIdentificacion'].hasError('required') && createForm.controls['medicoIdentificacion'].touched"
+          class="text-danger support-text">Edad es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Nombres"
+                 maxlength="50"
+                 formControlName="medicoNombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['medicoNombres'].hasError('required') && createForm.controls['medicoNombres'].touched"
+          class="text-danger support-text">Nombres es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Apellidos"
+                 maxlength="50"
+                 formControlName="medicoApellidos">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['medicoApellidos'].hasError('required') && createForm.controls['medicoApellidos'].touched"
+          class="text-danger support-text">Apellidos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Telefono"
+                 maxlength="30"
+                 formControlName="medicoTelefono">
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 maxlength="255"
+                 formControlName="medicoDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['medicoDireccion'].hasError('required') && createForm.controls['medicoDireccion'].touched"
+          class="text-danger support-text">Direccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="medicoEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['medicoEstado'].hasError('required') && createForm.controls['medicoEstado'].touched"
+          class="text-danger support-text">medicoEstado es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  class="mr-1"
+                  type="submit"
+                  [disabled]="!createForm.valid">Crear
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /creating -->
+    <!-- editing -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.medicoCodigo}}</span>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Identificacion"
+                 type="number"
+                 step="1"
+                 formControlName="medicoIdentificacion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['medicoIdentificacion'].hasError('required') && editForm.controls['medicoIdentificacion'].touched"
+          class="text-danger support-text">Edad es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Nombres"
+                 maxlength="50"
+                 formControlName="medicoNombres">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['medicoNombres'].hasError('required') && editForm.controls['medicoNombres'].touched"
+          class="text-danger support-text">Nombres es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Apellidos"
+                 maxlength="50"
+                 formControlName="medicoApellidos">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['medicoApellidos'].hasError('required') && editForm.controls['medicoApellidos'].touched"
+          class="text-danger support-text">Apellidos es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Telefono"
+                 maxlength="30"
+                 formControlName="medicoTelefono">
+        </mat-form-field>
+        <small
+          *ngIf="editForm.controls['medicoTelefono'].hasError('required') && editForm.controls['medicoTelefono'].touched"
+          class="text-danger support-text">Telefono es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Direccion"
+                 maxlength="255"
+                 formControlName="medicoDireccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['medicoDireccion'].hasError('required') && editForm.controls['medicoDireccion'].touched"
+          class="text-danger support-text">Direccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="medicoEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['medicoEstado'].hasError('required') && editForm.controls['medicoEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  type="submit"
+                  color="primary"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+          <button mat-raised-button
+                  mat-button
+                  type="button"
+                  color="accent"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /editing -->
+
+  </mat-card-content>
+</mat-card>
+
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+

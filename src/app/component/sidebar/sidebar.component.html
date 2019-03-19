@@ -1,0 +1,10 @@
+<perfect-scrollbar>
+  <mat-form-field floatPlaceholder="never"
+                  class="w-100 white p-1">
+    <input matInput #sidebarFilter placeholder="Filtro">
+  </mat-form-field>
+  <mat-nav-list>
+    <app-menu-list-item *ngFor="let item of filteredNavItems" [item]="item"></app-menu-list-item>
+  </mat-nav-list>
+  <span *ngIf="filteredNavItems.length === 0" class="text-white">No matching found.</span>
+</perfect-scrollbar>

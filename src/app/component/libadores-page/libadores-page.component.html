@@ -1,0 +1,812 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2 class="h2">Libadores</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="w-100">
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.SHOWING">
+
+      <mat-form-field floatPlaceholder="never"
+                      color="accent"
+                      class="w-100">
+        <input
+          matInput
+          #filter
+          value=""
+          placeholder="Filtro">
+      </mat-form-field>
+
+
+      <div class="w-100" style="overflow-x: auto">
+
+        <table mat-table [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="lbCodigoUnico" sticky>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Unico</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbCodigoUnico}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbCodigoLibador">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Libador</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.libador.lbApellidos}} {{element.libador.lbNombres}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbExpediente">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Expediente</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbExpediente}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbDireccionInfraccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>DireccionInfraccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbDireccionInfraccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbFechaInfraccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaInfraccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbFechaInfraccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbHoraInfraccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>HoraInfraccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbHoraInfraccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbMinutoInfraccion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>MinutoInfraccion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbMinutoInfraccion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbNumeroCitacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>NumeroCitacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbNumeroCitacion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbParteInformativo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>ParteInformativo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbParteInformativo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbTipoBebida">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>TipoBebida</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbTipoBebida}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbCodigoTipoProcedimiento">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>TipoProcedimiento</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.tipoProcedimiento.descripcion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbFechaIngreso">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>FechaIngreso</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbFechaIngreso}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbCodigoParroquia">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Parroquia</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbCodigoParroquia}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbCodigoTipoResolucion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>TipoResolucion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.tipoResolucion.descripcion}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbGeoReferenciacion">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>GeoReferenciacion</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbGeoReferenciacion | sino}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbCodigoGeo">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Geo</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbCodigoGeo}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbImpugna">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Impugna</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbImpugna | sino}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lbEstado">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">{{element.lbEstado | estado}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions" stickyEnd>
+            <mat-header-cell mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="startCreating()">
+                <mat-icon aria-label="Add">add</mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="startEditing(element)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteItem(element)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+        </table>
+
+
+      </div>
+
+
+      <div
+        *ngIf="dataSource?.totalCount == 0"
+        class="alert-warning text-center">No records
+      </div>
+
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.totalCount"
+        [pageSize]="pageSizes[0]"
+        showFirstLastButtons
+
+        [pageSizeOptions]="pageSizes"></mat-paginator>
+
+    </div>
+
+    <!-- create -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.CREATING">
+      <h4 class="h4">Nuevo</h4>
+      <form
+        (ngSubmit)="create()"
+        [formGroup]="createForm">
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Libador"
+                 (click)="openLibadorSelectDialog()"
+                 readonly
+                 formControlName="lbCodigoLibador">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbCodigoLibador'].hasError('required') && createForm.controls['lbCodigoLibador'].touched"
+          class="text-danger support-text">Libador es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Expediente"
+                 maxlength="10"
+                 type="text"
+                 formControlName="lbExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbExpediente'].hasError('required') && createForm.controls['lbExpediente'].touched"
+          class="text-danger support-text">Expediente es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="DireccionInfraccion"
+                 maxlength="100"
+                 type="text"
+                 formControlName="lbDireccionInfraccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbDireccionInfraccion'].hasError('required') && createForm.controls['lbDireccionInfraccion'].touched"
+          class="text-danger support-text">DireccionInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lbFechaInfraccionPicker4Create"
+            placeholder="FechaInfraccion"
+            formControlName="lbFechaInfraccion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lbFechaInfraccionPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #lbFechaInfraccionPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbFechaInfraccion'].hasError('required') && createForm.controls['lbFechaInfraccion'].touched"
+          class="text-danger support-text">FechaInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HoraInfraccion"
+                 type="number"
+                 step="1"
+                 min="0"
+                 max="23"
+                 formControlName="lbHoraInfraccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbHoraInfraccion'].hasError('required') && createForm.controls['lbHoraInfraccion'].touched"
+          class="text-danger support-text">HoraInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MinutoInfraccion"
+                 type="number"
+                 step="1"
+                 min="0"
+                 max="59"
+                 formControlName="lbMinutoInfraccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbMinutoInfraccion'].hasError('required') && createForm.controls['lbMinutoInfraccion'].touched"
+          class="text-danger support-text">MinutoInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroCitacion"
+                 maxlength="10"
+                 type="text"
+                 formControlName="lbNumeroCitacion">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbNumeroCitacion'].hasError('required') && createForm.controls['lbNumeroCitacion'].touched"
+          class="text-danger support-text">NumeroCitacion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="ParteInformativo"
+                 maxlength="255"
+                 type="text"
+                 formControlName="lbParteInformativo">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbParteInformativo'].hasError('required') && createForm.controls['lbParteInformativo'].touched"
+          class="text-danger support-text">ParteInformativo es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="TipoBebida"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbTipoBebida">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbTipoBebida'].hasError('required') && createForm.controls['lbTipoBebida'].touched"
+          class="text-danger support-text">TipoBebida es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="TipoProcedimiento"
+            formControlName="lbCodigoTipoProcedimiento">
+            <ngx-mat-select-search
+              [placeholderLabel]="'Search'"
+              [noEntriesFoundLabel]="'Not found.'"
+              [formControl]="lbCodigoTipoProcedimientoCreateFilterCtrl">
+            </ngx-mat-select-search>
+            <mat-option
+              *ngFor="let item of tipoProcedimientoFilteredArray4Create"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbCodigoTipoProcedimiento'].hasError('required') && createForm.controls['lbCodigoTipoProcedimiento'].touched"
+          class="text-danger support-text">TipoProcedimiento es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lbFechaIngresoPicker4Create"
+            placeholder="FechaIngreso"
+            formControlName="lbFechaIngreso">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lbFechaIngresoPicker4Create"></mat-datepicker-toggle>
+          <mat-datepicker #lbFechaIngresoPicker4Create></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbFechaIngreso'].hasError('required') && createForm.controls['lbFechaIngreso'].touched"
+          class="text-danger support-text">FechaIngreso es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="Parroquia"
+            formControlName="lbCodigoParroquia">
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbCodigoParroquia'].hasError('required') && createForm.controls['lbCodigoParroquia'].touched"
+          class="text-danger support-text">Parroquia es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="TipoResolucion"
+            formControlName="lbCodigoTipoResolucion">
+            <ngx-mat-select-search
+              [placeholderLabel]="'Search'"
+              [noEntriesFoundLabel]="'Not found.'"
+              [formControl]="lbCodigoTipoResolucionCreateFilterCtrl"></ngx-mat-select-search>
+            <mat-option
+              *ngFor="let item of tipoResolucionFilteredArray4Create"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbCodigoTipoResolucion'].hasError('required') && createForm.controls['lbCodigoTipoResolucion'].touched"
+          class="text-danger support-text">TipoResolucion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GeoReferenciacion"
+                      formControlName="lbGeoReferenciacion">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbGeoReferenciacion'].hasError('required') && createForm.controls['lbGeoReferenciacion'].touched"
+          class="text-danger support-text">GeoReferenciacion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Geo"
+                 type="number"
+                 step="1"
+                 formControlName="lbCodigoGeo">
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbCodigoGeo'].hasError('required') && createForm.controls['lbCodigoGeo'].touched"
+          class="text-danger support-text">Geo es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Impugna"
+                      formControlName="lbImpugna">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbImpugna'].hasError('required') && createForm.controls['lbImpugna'].touched"
+          class="text-danger support-text">Impugna es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="lbEstado">
+            <mat-option value="" selected disabled="">Seleccionar</mat-option>
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="createForm.controls['lbEstado'].hasError('required') && createForm.controls['lbEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  type="submit"
+                  class="mr-1"
+                  [disabled]="!createForm.valid">Crear
+
+          </button>
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /create -->
+
+    <!-- edit -->
+    <div class="container-fluid"
+         [class.d-none]="state !== PAGE_STATE.EDITING">
+      <h4 class="h4">Actualizar</h4>
+      <form
+        [formGroup]="editForm"
+        (ngSubmit)="save()">
+
+        <span *ngIf="selectedItem">Registro seleccionado: {{selectedItem.lbCodigoUnico}}</span>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Libador"
+                 (click)="openLibadorSelectDialog()"
+                 readonly
+                 formControlName="lbCodigoLibador">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbCodigoLibador'].hasError('required') && editForm.controls['lbCodigoLibador'].touched"
+          class="text-danger support-text">Libador es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Expediente"
+                 maxlength="10"
+                 type="text"
+                 formControlName="lbExpediente">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbExpediente'].hasError('required') && editForm.controls['lbExpediente'].touched"
+          class="text-danger support-text">Expediente es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="DireccionInfraccion"
+                 maxlength="100"
+                 type="text"
+                 formControlName="lbDireccionInfraccion">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbDireccionInfraccion'].hasError('required') && editForm.controls['lbDireccionInfraccion'].touched"
+          class="text-danger support-text">DireccionInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lbFechaInfraccionPicker4Edit"
+            placeholder="FechaInfraccion"
+            formControlName="lbFechaInfraccion">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lbFechaInfraccionPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #lbFechaInfraccionPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbFechaInfraccion'].hasError('required') && editForm.controls['lbFechaInfraccion'].touched"
+          class="text-danger support-text">FechaInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="HoraInfraccion"
+                 type="number"
+                 step="1"
+                 min="0"
+                 max="23"
+                 formControlName="lbHoraInfraccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbHoraInfraccion'].hasError('required') && editForm.controls['lbHoraInfraccion'].touched"
+          class="text-danger support-text">HoraInfraccion es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="MinutoInfraccion"
+                 type="number"
+                 step="1"
+                 min="0"
+                 max="59"
+                 formControlName="lbMinutoInfraccion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbMinutoInfraccion'].hasError('required') && editForm.controls['lbMinutoInfraccion'].touched"
+          class="text-danger support-text">MinutoInfraccion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="NumeroCitacion"
+                 maxlength="10"
+                 type="text"
+                 formControlName="lbNumeroCitacion">
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbNumeroCitacion'].hasError('required') && editForm.controls['lbNumeroCitacion'].touched"
+          class="text-danger support-text">NumeroCitacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="ParteInformativo"
+                 maxlength="255"
+                 type="text"
+                 formControlName="lbParteInformativo">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbParteInformativo'].hasError('required') && editForm.controls['lbParteInformativo'].touched"
+          class="text-danger support-text">ParteInformativo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="TipoBebida"
+                 maxlength="50"
+                 type="text"
+                 formControlName="lbTipoBebida">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbTipoBebida'].hasError('required') && editForm.controls['lbTipoBebida'].touched"
+          class="text-danger support-text">TipoBebida es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="TipoProcedimiento"
+            formControlName="lbCodigoTipoProcedimiento">
+            <ngx-mat-select-search
+              [placeholderLabel]="'Search'"
+              [noEntriesFoundLabel]="'Not found.'"
+              [formControl]="lbCodigoTipoProcedimientoCreateFilterCtrl">
+            </ngx-mat-select-search>
+            <mat-option
+              *ngFor="let item of tipoProcedimientoFilteredArray4Edit"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbCodigoTipoProcedimiento'].hasError('required') && editForm.controls['lbCodigoTipoProcedimiento'].touched"
+          class="text-danger support-text">TipoProcedimiento es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input
+            matInput
+            type="text"
+            [matDatepicker]="lbFechaIngresoPicker4Edit"
+            placeholder="FechaIngreso"
+            formControlName="lbFechaIngreso">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="lbFechaIngresoPicker4Edit"></mat-datepicker-toggle>
+          <mat-datepicker #lbFechaIngresoPicker4Edit></mat-datepicker>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbFechaIngreso'].hasError('required') && editForm.controls['lbFechaIngreso'].touched"
+          class="text-danger support-text">FechaIngreso es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="Parroquia"
+            formControlName="lbCodigoParroquia">
+            <mat-option
+              *ngFor="let item of pageData.parroquiaList"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbCodigoParroquia'].hasError('required') && editForm.controls['lbCodigoParroquia'].touched"
+          class="text-danger support-text">Parroquia es requerido.
+        </small>
+
+        <mat-form-field class="w-100">
+          <mat-select
+            placeholder="TipoResolucion"
+            formControlName="lbCodigoTipoResolucion">
+            <ngx-mat-select-search
+              [placeholderLabel]="'Search'"
+              [noEntriesFoundLabel]="'Not found.'"
+              [formControl]="lbCodigoTipoResolucionCreateFilterCtrl"></ngx-mat-select-search>
+            <mat-option
+              *ngFor="let item of tipoResolucionFilteredArray4Edit"
+              [value]="item.codigo">{{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbCodigoTipoResolucion'].hasError('required') && editForm.controls['lbCodigoTipoResolucion'].touched"
+          class="text-danger support-text">TipoResolucion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="GeoReferenciacion"
+                      formControlName="lbGeoReferenciacion">
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <small
+          *ngIf="editForm.controls['lbGeoReferenciacion'].hasError('required') && editForm.controls['lbGeoReferenciacion'].touched"
+          class="text-danger support-text">GeoReferenciacion es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <input matInput
+                 placeholder="Geo"
+                 type="number"
+                 step="1"
+                 formControlName="lbCodigoGeo">
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbCodigoGeo'].hasError('required') && editForm.controls['lbCodigoGeo'].touched"
+          class="text-danger support-text">Geo es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Impugna"
+                      formControlName="lbImpugna">
+
+            <mat-option [value]="1">SI</mat-option>
+            <mat-option [value]="0">NO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbImpugna'].hasError('required') && editForm.controls['lbImpugna'].touched"
+          class="text-danger support-text">Impugna es requerido.
+        </small>
+
+
+        <mat-form-field class="w-100">
+          <mat-select placeholder="Estado"
+                      formControlName="lbEstado">
+
+            <mat-option [value]="1">ACTIVO</mat-option>
+            <mat-option [value]="0">INACTIVO</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <small
+          *ngIf="editForm.controls['lbEstado'].hasError('required') && editForm.controls['lbEstado'].touched"
+          class="text-danger support-text">Estado es requerido.
+        </small>
+
+
+        <div class="d-flex justify-content-end">
+
+          <button mat-raised-button
+                  mat-button
+                  color="primary"
+                  type="submit"
+                  class="mr-1"
+                  [disabled]="!editForm.valid">Grabar
+          </button>
+
+          <button mat-button
+                  mat-raised-button
+                  color="accent"
+                  type="button"
+                  (click)="state = PAGE_STATE.SHOWING">Cancelar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!-- /edit -->
+
+  </mat-card-content>
+</mat-card>
+
+<ng-template #deleteConfirmDialog>
+  <div mat-dialog-content>
+    <p>Are you sure to delete this record?</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onDeleteConfirmDialogYes()">Sure
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onDeleteConfirmDialogNo()">Not sure
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #libadorSelectDialog>
+  <div mat-dialog-content>
+    <p>Selecionar Libador</p>
+  </div>
+
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Libador"
+      [matAutocomplete]="autoComplete4LibadorSelect"
+      [formControl]="libadorSelectFilterKeyCtrl">
+  </mat-form-field>
+
+  <mat-autocomplete
+    #autoComplete4LibadorSelect="matAutocomplete"
+    [displayWith]="libadorAutoCompleteDisplayWith"
+    (optionSelected)="onLibadorSelectOptionSelected($event)">
+    <mat-option
+      *ngFor="let item of libadorFiltered | async"
+      [value]="item">
+      {{item.lbApellidos}} {{item.lbNombres}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <span
+    *ngIf="selectedLibador">Registro seleccionado: {{selectedLibador.lbApellidos}} {{selectedLibador.lbNombres}}</span>
+
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button
+            mat-button
+            color="primary"
+            (click)="onLibadorSelectDialogOk()">Ok
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onLibadorSelectDialogCreate()">Nuevo
+    </button>
+    <button mat-raised-button
+            mat-button
+            color="warn"
+            (click)="onLibadorSelectDialogCancel()">Cancelar
+    </button>
+  </div>
+</ng-template>
+
