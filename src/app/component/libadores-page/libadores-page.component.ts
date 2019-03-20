@@ -380,7 +380,7 @@ export class LibadoresPageComponent implements OnInit, AfterViewInit {
         });
     }
     else{
-        this.toastr.error('Seleccione la fecha correcta');
+        this.toastr.error('La fecha de infraction no puede ser mayor a la fecha de ingreso');
     }
 
   }
