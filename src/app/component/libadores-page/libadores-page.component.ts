@@ -358,24 +358,31 @@ export class LibadoresPageComponent implements OnInit, AfterViewInit {
 
 
     const params = this.createForm.value;
-
     params.lbFechaInfraccion = moment(params.lbFechaInfraccion).format('YYYY-MM-DD');
     params.lbFechaIngreso = moment(params.lbFechaIngreso).format('YYYY-MM-DD');
-    params.lbCodigoLibador = this.selectedItem.libador.lbCodigoLibador;
+    var firstdata = params.lbFechaInfraccion;
+    var seconddata = params.lbFechaIngreso;
+    var flag = this.compare(firstdata,seconddata);
+    if (flag == 0) {
+      params.lbCodigoLibador = this.selectedItem.libador.lbCodigoLibador;
 
+      this.spinner.show();
+      this.apiService.libadores.create(params).subscribe(() => {
+          this.spinner.hide();
+          this.toastr.success('Creado existosamente');
+          this.state = PAGE_STATE.SHOWING;
+          this.loadData();
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          this.spinner.hide();
+          this.toastr.error('Ha ocurrido un error');
+        });
+    }
+    else{
+        this.toastr.error('Seleccione la fecha correcta');
+    }
 
-    this.spinner.show();
-    this.apiService.libadores.create(params).subscribe(() => {
-        this.spinner.hide();
-        this.toastr.success('Creado existosamente');
-        this.state = PAGE_STATE.SHOWING;
-        this.loadData();
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-        this.spinner.hide();
-        this.toastr.error('Ha ocurrido un error');
-      });
   }
 
   startEditing(row) {
@@ -503,6 +510,26 @@ export class LibadoresPageComponent implements OnInit, AfterViewInit {
         this.toastr.error('Ha ocurrido un error');
       });
   }
+  public  compare(firstdate,seconddate)
+  {
+    var firstdata = firstdate.split("-",3);
+    var firstyear = +firstdata[0];
+    var firstmonth = +firstdata[1];
+    var firstday = +firstdata[2];
+    var firstcount = firstyear + firstmonth + firstday;
+    var seconddata = seconddate.split("-",3);
+    var secondyear = +seconddata[0];
+    var secondmonth = +seconddata[1];
+    var secondday = +seconddata[2];
+    var secondcount = secondyear + secondmonth + secondday;
+
+    if (firstcount > secondcount)  {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
 
 }
 
@@ -549,6 +576,7 @@ class LibadoresDataSource implements DataSource<any> {
         return this.dataSubject.next(data.items);
       });
   }
+
 
 }
 
