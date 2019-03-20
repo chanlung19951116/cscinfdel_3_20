@@ -362,8 +362,8 @@ export class LibadoresPageComponent implements OnInit, AfterViewInit {
     params.lbFechaIngreso = moment(params.lbFechaIngreso).format('YYYY-MM-DD');
     var firstdata = params.lbFechaInfraccion;
     var seconddata = params.lbFechaIngreso;
-    var fl = this.compare(firstdata,seconddata);
-    if (fl == 0) {
+    var flag = this.compare(firstdata,seconddata);
+    if (flag == 0) {
       params.lbCodigoLibador = this.selectedItem.libador.lbCodigoLibador;
 
       this.spinner.show();
